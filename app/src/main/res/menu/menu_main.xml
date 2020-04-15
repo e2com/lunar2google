@@ -1,0 +1,60 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.nari.lunar2google.LunarGugul">
+    <item
+        android:id="@+id/action_menu_append"
+        android:icon="@drawable/ic_menu_business"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_append"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_sync_schedule"
+        android:icon="@drawable/ic_menu_link"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_sync_schedule"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_about"
+        android:icon="@drawable/ic_menu_anchor"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_about"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_get_schedule"
+        android:icon="@drawable/ic_menu_tick"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_get_schedule"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_today"
+        android:icon="@drawable/ic_menu_categories"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_today"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_backup"
+        android:icon="@drawable/ic_menu_tag"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_backup"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_restore"
+        android:icon="@drawable/ic_menu_phone"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_restore"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_set_alarm_time"
+        android:icon="@drawable/ic_menu_phone"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_set_alarm_time"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_test_alarm"
+        android:icon="@drawable/ic_menu_phone"
+        android:orderInCategory="100"
+        android:title="@string/label_menu_test_alarm"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+  android:gravity="center_horizontal">
+
+	<EditText 
+		android:text="제목을 입력하세요" 
+		android:id="@+id/deleteSubject" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:scrollHorizontally="true"
+		android:singleLine="true"
+		android:textSize="15dip"
+		android:selectAllOnFocus="true"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="36dp"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/btn_sYear_up"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:text="@string/label_btn_plus" />
+        
+	    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+	    <Button
+	        android:id="@+id/btn_sMon_up"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="14"
+	        android:text="@string/label_btn_plus" />
+
+	    <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+	    <Button
+	        android:id="@+id/btn_sDay_up"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="14"
+	        android:text="@string/label_btn_plus" />
+        
+	    <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <Button
+	        android:id="@+id/btn_sHour_up"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="14"
+	        android:text="@string/label_btn_plus" />
+
+	    <TextView
+            android:id="@+id/textView5"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+	    <Button
+	        android:id="@+id/btn_sMin_up"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="14"
+	        android:text="@string/label_btn_plus" />
+        
+    </LinearLayout>
+    
+    
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:text="@string/label_date"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/entry_sYear"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:ellipsize="none"
+            android:inputType="date"
+            android:isScrollContainer="false"
+            android:nextFocusDown="@+id/entry_sMon"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:text="2012" />
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="-"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/entry_sMon"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:ellipsize="none"
+            android:inputType="date"
+            android:isScrollContainer="false"
+            android:singleLine="true"
+            android:selectAllOnFocus="true"
+            android:text="01" android:nextFocusDown="@+id/entry_sDay"/>
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="-"
+            android:textAppearance="?android:attr/textAppearanceLarge" />        
+        <EditText
+            android:id="@+id/entry_sDay"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:ellipsize="none"
+            android:inputType="date"
+            android:isScrollContainer="false"
+            android:singleLine="true"
+            android:selectAllOnFocus="true"
+            android:text="01" android:nextFocusDown="@+id/entry_sHour"/>  
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />                 
+        <EditText
+            android:id="@+id/entry_sHour"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:inputType="time"
+            android:isScrollContainer="false"
+            android:singleLine="true"
+            android:selectAllOnFocus="true"
+            android:text="12" android:nextFocusDown="@+id/entry_sMin"/>
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text=":"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/entry_sMin"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:inputType="time"
+            android:isScrollContainer="false"
+            android:singleLine="true"
+            android:selectAllOnFocus="true"
+            android:text="10" android:nextFocusDown="@+id/deleteName"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="36dp"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+        <Button
+            android:id="@+id/btn_sYear_down"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:text="@string/label_btn_minus" />
+        
+	    <TextView
+            android:id="@+id/textView8"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+	    <Button
+	        android:id="@+id/btn_sMon_down"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="14"
+	        android:text="@string/label_btn_minus" />
+
+	    <TextView
+            android:id="@+id/textView9"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+
+	    <Button
+	        android:id="@+id/btn_sDay_down"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="14"
+	        android:text="@string/label_btn_minus" />
+        
+	    <TextView
+            android:id="@+id/textView10"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+	    <Button
+	        android:id="@+id/btn_sHour_down"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="14"
+	        android:text="@string/label_btn_minus" />
+
+	    <TextView
+            android:id="@+id/textView11"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <Button
+	        android:id="@+id/btn_sMin_down"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="14"
+	        android:text="@string/label_btn_minus" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:id="@+id/RadioGroup01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/selectLunar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:checked="true"
+                android:text="@string/label_lunar" />
+
+            <RadioButton
+                android:id="@+id/selectSolra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@string/label_solra" />
+
+            <CheckBox
+                android:id="@+id/chk_lunar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@string/label_leap" />
+        </RadioGroup>
+    </LinearLayout>
+	
+	<EditText 
+		android:text="연락할 사람이름 입력하세요" 
+		android:id="@+id/deleteName" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:scrollHorizontally="true"
+		android:singleLine="true"
+		android:textSize="15dip"
+		android:selectAllOnFocus="true"/>
+	<EditText
+		android:text="전화번호 입력하세요" 
+		android:id="@+id/deleteMobilNo" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:scrollHorizontally="true"
+		android:singleLine="true"
+		android:textSize="15dip"
+		android:selectAllOnFocus="true"
+		android:inputType="phone"/>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center">
+	<Button 
+		android:text="수정" 
+		android:id="@+id/update_btn" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textSize="15dip"/>
+	<Button 
+		android:text="삭제" 
+		android:id="@+id/delete_btn" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textSize="15dip"/>
+	<Button 
+		android:text="문자전송" 
+		android:id="@+id/sendSMS_btn" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textSize="15dip"/>	
+	<Button 
+		android:text="취소" 
+		android:id="@+id/cancel_btn" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textSize="15dip"/>
+	</LinearLayout>
+</LinearLayout>

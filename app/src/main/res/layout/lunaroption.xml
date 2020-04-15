@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:gravity="center_horizontal">
+
+<TextView 
+		android:id="@+id/TextView1"
+   	 	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content" 
+    	android:text="알람시간을 설정하세요"
+    	android:textSize="30sp"
+    	android:textColor="#ffffff"/>
+    	
+<TimePicker 
+		android:text="기준시간" 
+		android:layout_below="@id/TextView1"
+		android:id="@+id/AlramTime" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"/>	
+<Button 
+		android:text="저장하기" 
+		android:textSize="15dip"
+		android:id="@+id/save_btn"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"/>
+		          
+</LinearLayout>

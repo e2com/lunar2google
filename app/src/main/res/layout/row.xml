@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent">
+	<TextView 
+		android:layout_alignParentLeft="true" 
+		android:id="@+id/tSubject"
+		android:layout_height="wrap_content" android:layout_width="wrap_content"
+		android:textSize="12pt"
+		android:text="TextView"/>
+	<TextView
+		android:layout_below="@id/tSubject"
+		android:layout_alignLeft="@id/tSubject"
+		android:id="@+id/tBasedate" android:layout_height="wrap_content"
+		android:layout_width="match_parent" 
+		android:text="TextView"/>
+	<TextView
+		android:layout_below="@id/tBasedate"
+		android:layout_alignLeft="@id/tBasedate"
+		android:id="@+id/tName" android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:textSize="8pt"
+		android:text="TextView"/>
+	<TextView
+		android:layout_below="@id/tName"
+		android:layout_alignLeft="@id/tName" 
+		android:id="@+id/tMobilno" android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="TextView"/>			
+	<TextView
+		android:layout_alignParentRight="true"
+		android:layout_alignBaseline="@id/tMobilno" 
+		android:id="@+id/tSync_stat" android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="TextView"/>
+</RelativeLayout>
