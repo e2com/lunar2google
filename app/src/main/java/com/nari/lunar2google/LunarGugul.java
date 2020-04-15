@@ -69,6 +69,8 @@ public class LunarGugul extends AppCompatActivity {
 	final static int PERMISSION_REQUEST_CODE = 1000 ;
 	TextView hello ;
 
+	private BackPressCloseHandler backPressCloseHandler;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,6 +79,7 @@ public class LunarGugul extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 
 		hello = findViewById(R.id.hello); // TextView 글자 넣기
+		backPressCloseHandler = new BackPressCloseHandler(this);
 
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +98,7 @@ public class LunarGugul extends AppCompatActivity {
 		});
 
 		// adMob 광고 추가 2017.04.23
-        //MobileAds.initialize(getApplicationContext(), "ca-app-pub-5706840078904135~7939326835");
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
 		AdRequest adReqeust = new AdRequest.Builder().build();
 		mAdView.loadAd(adReqeust);
         // end adMob
@@ -113,6 +115,22 @@ public class LunarGugul extends AppCompatActivity {
 
 	}
 
+	/**
+	 * 뒤로 가기 버튼으로 종료를 하고자 할 때
+	 */
+	@Override
+	public void onBackPressed() {
+		//super.onBackPressed();
+		// 이것 막고 새로 만들걸루 대체
+		backPressCloseHandler.onBackPressed();
+
+		onRefreshData() ;
+	}
+
+	/**
+	 * 화면에 데이터 조회하기
+	 * @return
+	 */
 	public boolean onRefreshData() {
 		boolean bResult = false ;
 
@@ -126,93 +144,16 @@ public class LunarGugul extends AppCompatActivity {
 			e1.printStackTrace();
 		}
 
-		Uri calendars = null;
-
-		if (android.os.Build.VERSION.SDK_INT == 7) {
-			calendars = Uri.parse("content://calendar/calendars");
-		} else {
-			calendars = Uri.parse("content://com.android.calendar/calendars");
-		}
-
-		String[] projection_calendars = null ;
-		Cursor Cursor_calendars = null ;
-		if (android.os.Build.VERSION.SDK_INT < 14) {
-			projection_calendars = new String[] { "_id", "name", "_sync_account_type" };
-			Cursor_calendars = getContentResolver().query(calendars,	projection_calendars, "selected=1", null, null);
-		} else {
-			projection_calendars = new String[] {"_id",  "name", "account_type"} ;
-			Cursor_calendars = getContentResolver().query(calendars, projection_calendars, "visible=1", null, null) ;
-		}
-
-		try {
-			if (Cursor_calendars.moveToFirst()) {
-				boolean chk_google = false;
-				int[] _id = new int[Cursor_calendars.getCount()];
-				String[] calendars_name = new String[Cursor_calendars.getCount()];
-				String[] _sync_account_type = new String[Cursor_calendars.getCount()];
-				//String[] timezone = new String[Cursor_calendars.getCount()];
-
-				for (int i = 0; i < calendars_name.length; i++) {
-					_id[i] = Cursor_calendars.getInt(0);
-					calendars_name[i] = Cursor_calendars.getString(1);
-					_sync_account_type[i] = Cursor_calendars.getString(2);
-					//timezone[i]=Cursor_calendars.getString(3);
-					Log.d(TAG, "[" + _id[i] + "][" + calendars_name[i] + "]") ;
-					if (calendars_name[i].indexOf("@gmail.com") > 0) {
-						chk_google = true;
-						SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
-						SharedPreferences.Editor edit = pref.edit() ;
-						edit.putString("CalendarID", String.valueOf(_id[i])) ;
-						edit.commit() ;
-						break ; // 2017.04.05 한개만 찾으면 되기 때문에
-					}
-					Cursor_calendars.moveToNext();
-				}
-				Cursor_calendars.close();
-
-				if (!chk_google) {
-
-					DialogInterface.OnClickListener mClickLeft = new DialogInterface.OnClickListener() {
-
-						public void onClick(DialogInterface dialog, int which) {
-							// finish() ;
-						}
-					};
-
-					DialogInterface.OnClickListener mClickRight = new DialogInterface.OnClickListener() {
-
-						public void onClick(DialogInterface dialog, int which) {
-							finish();
-						}
-					};
-
-					new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.label_notify))
-							.setMessage(getResources().getString(R.string.label_mesg_not_sync))
-							.setPositiveButton(getResources().getString(R.string.label_btn_continue), mClickLeft)
-							.setNegativeButton(getResources().getString(R.string.label_cancel_btn), mClickRight).show();
-				}
-
+		// 카렌더 등록할 계정이 있는지 확인함.
+		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
+		String googleId = pref.getString("CalendarID","") ;
+		if ("".equals(googleId)) {
+			CalendarIdRef calendarIdRef = new CalendarIdRef();
+			ArrayList<String> googleIds = calendarIdRef.CalendarIdRef(LunarGugul.this);
+			// 구글 계정이 없으니 그만
+			if (googleIds.size() < 1) {
+				finish();
 			}
-		} catch (Exception e) {
-
-			DialogInterface.OnClickListener mClickLeft = new DialogInterface.OnClickListener() {
-
-				public void onClick(DialogInterface dialog, int which) {
-					finish() ;
-				}
-			};
-
-			DialogInterface.OnClickListener mClickRight = new DialogInterface.OnClickListener() {
-
-				public void onClick(DialogInterface dialog, int which) {
-					finish();
-				}
-			};
-
-			new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.label_notify))
-					.setMessage(getResources().getString(R.string.label_mesg_not_sync))
-					.setPositiveButton(getResources().getString(R.string.label_btn_continue), mClickLeft)
-					.setNegativeButton(getResources().getString(R.string.label_cancel_btn), mClickRight).show();
 		}
 
 		doDisplayData();
@@ -463,8 +404,6 @@ public class LunarGugul extends AppCompatActivity {
 	private boolean isExternalStorageAvail() {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
-
-	/*
 
     /**
      * 백업 하기

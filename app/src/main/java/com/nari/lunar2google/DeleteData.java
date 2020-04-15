@@ -110,6 +110,8 @@ public class DeleteData extends Activity {
 		
 		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
         String AlramSetTime = pref.getString("Time", "0800") ;
+        int googleId = Integer.parseInt(pref.getString("CalendarID", "3")) ;
+        Log.d(TAG, "googleId=" + googleId);
         entry_sHour.setText(AlramSetTime.substring(0, 2));
         entry_sMin.setText(AlramSetTime.substring(2, 4));
 		
@@ -159,8 +161,8 @@ public class DeleteData extends Activity {
 			public void onClick(View v) {
 				
 				uSubject = deleteSubject.getText().toString() ;
-				uBase_date = pad(Integer.valueOf(entry_sYear.getText().toString())) + pad(Integer.valueOf(entry_sMon.getText().toString())) + pad(Integer.valueOf(entry_sDay.getText().toString())) ;
-				uBase_time = pad(Integer.valueOf(entry_sHour.getText().toString())) + pad(Integer.valueOf(entry_sMin.getText().toString())) ;
+				uBase_date = pad(Integer.parseInt(entry_sYear.getText().toString())) + pad(Integer.parseInt(entry_sMon.getText().toString())) + pad(Integer.parseInt(entry_sDay.getText().toString())) ;
+				uBase_time = pad(Integer.parseInt(entry_sHour.getText().toString())) + pad(Integer.parseInt(entry_sMin.getText().toString())) ;
 				uName = deleteName.getText().toString() ;
 				uMobilno = deleteMobilNo.getText().toString() ;
 				uSync_stat = 1 ; // 2011.05.01 부터는 수정할때도 동기화를 시도함...
@@ -235,8 +237,8 @@ public class DeleteData extends Activity {
 							
 							try {
 								uSubject = deleteSubject.getText().toString() ;
-								//uBase_date = pad(Integer.valueOf(entry_sYear.toString())) + pad(Integer.valueOf(entry_sMon.toString())) + pad(Integer.valueOf(entry_sDay.toString())) ;
-								//uBase_time = pad(Integer.valueOf(entry_sHour.toString())) + pad(Integer.valueOf(entry_sMin.toString())) ;
+								//uBase_date = pad(Integer.parseInt(entry_sYear.toString())) + pad(Integer.parseInt(entry_sMon.toString())) + pad(Integer.parseInt(entry_sDay.toString())) ;
+								//uBase_time = pad(Integer.parseInt(entry_sHour.toString())) + pad(Integer.parseInt(entry_sMin.toString())) ;
 								uName = deleteName.getText().toString() ;
 								uMobilno = deleteMobilNo.getText().toString() ;
 								//uSync_stat = sync_stat ;
@@ -302,11 +304,11 @@ public class DeleteData extends Activity {
 	
 	Button.OnClickListener mClickListener = new View.OnClickListener() {
 		public void onClick(View v) {
-			int sYear = Integer.valueOf(entry_sYear.getText().toString()) ;
-			int sMonth = Integer.valueOf(entry_sMon.getText().toString()) ;
-			int sDay = Integer.valueOf(entry_sDay.getText().toString()) ;
-			int sHour= Integer.valueOf(entry_sHour.getText().toString()) ;
-			int sMin = Integer.valueOf(entry_sMin.getText().toString()) ;
+			int sYear = Integer.parseInt(entry_sYear.getText().toString()) ;
+			int sMonth = Integer.parseInt(entry_sMon.getText().toString()) ;
+			int sDay = Integer.parseInt(entry_sDay.getText().toString()) ;
+			int sHour= Integer.parseInt(entry_sHour.getText().toString()) ;
+			int sMin = Integer.parseInt(entry_sMin.getText().toString()) ;
 			
 			switch (v.getId()) {
 			case R.id.btn_sYear_up:
@@ -382,8 +384,8 @@ public class DeleteData extends Activity {
 		sender = PendingIntent.getBroadcast(this, 0, intent1, 0) ;
 		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
         String AlramSetTime = pref.getString("Time", "0800") ;
-		int startHour = Integer.valueOf(AlramSetTime.substring(0, 2)) ;
-        int startMinute = Integer.valueOf(AlramSetTime.substring(2, 4)) ;
+		int startHour = Integer.parseInt(AlramSetTime.substring(0, 2)) ;
+        int startMinute = Integer.parseInt(AlramSetTime.substring(2, 4)) ;
 		int year = 0 ;
 		int month = 0 ;
 		int day = 0 ;
@@ -393,31 +395,31 @@ public class DeleteData extends Activity {
 			// 음력기록하기
 			if (leap_ty == 1) { // 윤달 음력
 				try {
-					year = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(0, 4) ) ;
-					month = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(4, 6) ) ;
-					day = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(6, 8) ) ;
+					year = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(0, 4) ) ;
+					month = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(4, 6) ) ;
+					day = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(6, 8) ) ;
 				
 				} catch (Exception e) {
-					year = Integer.valueOf(chk_date.substring(0, 4)) ;
-					month = Integer.valueOf(chk_date.substring(4, 6)) ;
-					day = Integer.valueOf(chk_date.substring(6, 8)) ;
+					year = Integer.parseInt(chk_date.substring(0, 4)) ;
+					month = Integer.parseInt(chk_date.substring(4, 6)) ;
+					day = Integer.parseInt(chk_date.substring(6, 8)) ;
 				}
 			} else { // 그냥 음력r
 				try {
-					year = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(0, 4) ) ;
-					month = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(4, 6) ) ;
-					day = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(6, 8) ) ;
+					year = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(0, 4) ) ;
+					month = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(4, 6) ) ;
+					day = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(6, 8) ) ;
 				} catch (Exception e) {
-					year = Integer.valueOf(chk_date.substring(0, 4)) ;
-					month = Integer.valueOf(chk_date.substring(4, 6)) ;
-					day = Integer.valueOf(chk_date.substring(6, 8)) ;
+					year = Integer.parseInt(chk_date.substring(0, 4)) ;
+					month = Integer.parseInt(chk_date.substring(4, 6)) ;
+					day = Integer.parseInt(chk_date.substring(6, 8)) ;
 				}
 			}
 		} else {
 			// 양력도 기록하기
-			year = Integer.valueOf(chk_date.substring(0, 4)) ;
-			month = Integer.valueOf(chk_date.substring(4, 6)) ;
-			day = Integer.valueOf(chk_date.substring(6, 8)) ;
+			year = Integer.parseInt(chk_date.substring(0, 4)) ;
+			month = Integer.parseInt(chk_date.substring(4, 6)) ;
+			day = Integer.parseInt(chk_date.substring(6, 8)) ;
 		}
 		
 		month = month - 1 ; // 달력에 기록되는 월은 0 ~ 11까지로 되어 있는디 이유는 모름...
@@ -445,59 +447,62 @@ public class DeleteData extends Activity {
 		String timezone = "Asia/Seoul" ;
 
 		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
+		int googleId = Integer.parseInt(pref.getString("CalendarID", "3")) ;
 		
         Calendar calStTime = Calendar.getInstance();
         Calendar calEndTime = Calendar.getInstance();
         calStTime.setTimeZone(TimeZone.getTimeZone(timezone)) ;
         calEndTime.setTimeZone(TimeZone.getTimeZone(timezone)) ;
         
-		int startHour = Integer.valueOf(base_time.substring(0, 2).toString()) ;
-        int startMinute = Integer.valueOf(base_time.substring(2, 4).toString()) ;
-        int endHour = startHour ;
-        int endMinute = startMinute ;
+		int startHour = Integer.parseInt(base_time.substring(0, 2).toString()) ;
+        int startMinute = Integer.parseInt(base_time.substring(2, 4).toString()) ;
 		int year = 0 ;
 		int month = 0 ;
 		int day = 0 ;
-		Log.d(">>>",timezone) ;
+		Log.d(TAG, timezone) ;
+		Log.d(TAG, "googleId=" + googleId ) ;
 		
 		for(int nextYear=0;nextYear<10;nextYear++) { // 앞으로 10년 동안 반복해서 기록하기... 2011.07.29 
-			int chk_yy = Integer.valueOf( sdf.format(dd).toString().substring(0, 4) ) + nextYear ;
+			int chk_yy = Integer.parseInt( sdf.format(dd).toString().substring(0, 4) ) + nextYear ;
 			String chk_date = String.valueOf(chk_yy) + base_date.substring(4, 8) ;
+
 			if (lunar_ty == 1) {
 				// 음력기록하기
 				if (leap_ty == 1) { // 윤달 음력
 					try {
-						year = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(0, 4) ) ;
-						month = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(4, 6) ) ;
-						day = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(6, 8) ) ;
+						year = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(0, 4) ) ;
+						month = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(4, 6) ) ;
+						day = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(6, 8) ) ;
 					
 					} catch (Exception e) {
-						year = Integer.valueOf(chk_date.substring(0, 4)) ;
-						month = Integer.valueOf(chk_date.substring(4, 6)) ;
-						day = Integer.valueOf(chk_date.substring(6, 8)) ;
+						year = Integer.parseInt(chk_date.substring(0, 4)) ;
+						month = Integer.parseInt(chk_date.substring(4, 6)) ;
+						day = Integer.parseInt(chk_date.substring(6, 8)) ;
 					}
 				} else { // 그냥 음력
 					try {
-						year = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(0, 4) ) ;
-						month = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(4, 6) ) ;
-						day = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(6, 8) ) ;
+						year = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(0, 4) ) ;
+						month = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(4, 6) ) ;
+						day = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(6, 8) ) ;
 					} catch (Exception e) {
-						year = Integer.valueOf(chk_date.substring(0, 4)) ;
-						month = Integer.valueOf(chk_date.substring(4, 6)) ;
-						day = Integer.valueOf(chk_date.substring(6, 8)) ;
+						year = Integer.parseInt(chk_date.substring(0, 4)) ;
+						month = Integer.parseInt(chk_date.substring(4, 6)) ;
+						day = Integer.parseInt(chk_date.substring(6, 8)) ;
 					}
 				}
 			} else {
 				// 양력도 기록하기
-				year = Integer.valueOf(chk_date.substring(0, 4)) ;
-				month = Integer.valueOf(chk_date.substring(4, 6)) ;
-				day = Integer.valueOf(chk_date.substring(6, 8)) ;
+				year = Integer.parseInt(chk_date.substring(0, 4)) ;
+				month = Integer.parseInt(chk_date.substring(4, 6)) ;
+				day = Integer.parseInt(chk_date.substring(6, 8)) ;
 			}
 			
 			month = month - 1 ; // 달력에 기록되는 월은 0 ~ 11까지로 되어 있는디 이유는 모름...
 			
 			chk_date = pad(year) + pad(month) + pad(day) ;
-			
+
+			Log.d(TAG, chk_date + " Write ...") ;
+
 			calStTime.set(Calendar.YEAR, year);
 			calStTime.set(Calendar.MONTH, month);
 			calStTime.set(Calendar.DATE, day);
@@ -506,11 +511,11 @@ public class DeleteData extends Activity {
 			calEndTime.set(Calendar.YEAR, year);
 			calEndTime.set(Calendar.MONTH, month);
 			calEndTime.set(Calendar.DATE, day);
-			calEndTime.set(Calendar.HOUR_OF_DAY, endHour);
-			calEndTime.set(Calendar.MINUTE, endMinute);
+			calEndTime.set(Calendar.HOUR_OF_DAY, startHour);
+			calEndTime.set(Calendar.MINUTE, startMinute);
 			
 			ContentValues cv = new ContentValues();
-			cv.put("calendar_id", Integer.parseInt(pref.getString("CalendarID", "3"))); // 2017.04.05 시작할때 구해 놓은 ID 을 찾아서
+			cv.put("calendar_id", googleId); // 2017.04.05 시작할때 구해 놓은 ID 을 찾아서
 			cv.put("title", subject); 
 			long startTime = calStTime.getTimeInMillis(); 
 			long endTime = calEndTime.getTimeInMillis(); 

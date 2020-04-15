@@ -4,15 +4,16 @@
     android:id="@+id/MainLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:baselineAligned="false"
     android:orientation="vertical"
-    android:baselineAligned="false">
+    android:weightSum="10">
 
 
     <TextView
         android:id="@+id/hello"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="9.79"
+        android:layout_weight="1"
         android:gravity="center"
         android:text="@string/hello"
         android:textColor="#00ffff"
@@ -22,25 +23,25 @@
         android:id="@+id/relativeLayout1"
         android:layout_width="wrap_content"
         android:layout_height="0dip"
-        android:layout_weight="80" >
+        android:layout_weight="7">
 
 
-
-    <ListView
-        android:id="@+id/ListView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:textSize="8sp" />
+        <ListView
+            android:id="@+id/ListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:textSize="8sp" />
 
     </RelativeLayout>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
+        ads:adUnitId="@string/banner_ad_unit_id_for_test" />
 
 </LinearLayout>

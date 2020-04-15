@@ -36,7 +36,7 @@
     <string name="label_menu_today">오늘일정</string>
     <string name="label_menu_backup">백업하기</string>
     <string name="label_menu_restore">복원하기</string>
-    <string name="label_menu_set_alarm_time">알림시간설정</string>
+    <string name="label_menu_set_alarm_time">옵션설정</string>
     <string name="label_menu_test_alarm">알람 Test</string>
     <string name="label_mesg_1">개발자 홈페이지</string>
     <string name="label_mesg_2">이 프로그램은 음력을 양력으로 변환해서 일정에 등록합니다.</string>
@@ -69,4 +69,17 @@
     <string name="label_invalid_phone_no">잘못된 전화번호 입니다.</string>
     <string name="label_menu_sms">문자전송</string>
     <string name="label_msg_pay_sms">문자를 보내는 것은 비용이 발생 합니다.  발송할까요?</string>
+    <string name="msgBackup">백업을 실행합니다</string>
+    <string name="msgBackupCompiled">백업이 완료 되었습니다</string>
+    <string name="msgNotBackup">백업에 오류가 발생했습니다</string>
+    <string name="label_restore">복구를 시작합니다</string>
+    <string name="mesg_restore_err">복구중 오류가 발생했습니다</string>
+    <string name="mesg_restore_ok">복구가 완료 되었습니다</string>
+    <string name="label_title_alarm_set">알람시간을 설정하세요</string>
+    <string name="label_standard_time">기준시간</string>
+    <string name="label_save">저장하기</string>
+    <string name="label_google_calendar">구글계정</string>
+    <string name="label_delete">삭제</string>
+    <string name="label_sms_send">문자전송</string>
+    <string name="label_finish_apps">종료를 하려면 한번더 뒤로가기를 클릭하세요</string>
 </resources>

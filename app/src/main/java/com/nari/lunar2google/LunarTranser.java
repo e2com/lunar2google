@@ -22,6 +22,7 @@ package com.nari.lunar2google;
  * ---------------------------------------------------------------------
  */
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LunarTranser {
@@ -259,8 +260,8 @@ public class LunarTranser {
     /**
      * 음력을 양력으로
      *
-     * @param       String    음력일('yyyyMMdd')
-     * @param       boolean   윤달 여부
+     * @param       TranseDay    음력일('yyyyMMdd')
+     * @param       leapyes   윤달 여부
      * @return      String    처리결과 양력일 엔티티
      * @throws      java.lang.Exception
      */
@@ -379,11 +380,18 @@ public class LunarTranser {
     /**
      * 양력을 음력으로
      *
-     * @param       String    양력일('yyyyMMdd')
+     * @param       TranseDay    양력일('yyyyMMdd')
      * @return      String    처리결과 음력일
      * @throws      java.lang.Exception
      */
     public static String solarTranse(String TranseDay) throws Exception {
+
+        // 2020.04.15 : 음력의 날자도 당해년도 음력 날자를 찾아서 주는 것으로.
+        long time = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd");
+        java.sql.Date dd = new java.sql.Date(time);
+        TranseDay = sdf.format(dd).substring(0, 4) + TranseDay.substring(4, 8) ;
+
         int dt[] = new int[163];
         for(int i = 0; i < 163; i++)
         {

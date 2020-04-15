@@ -40,7 +40,7 @@
     <string name="label_menu_today">Today Schedule</string>
     <string name="label_menu_backup">Backup Data</string>
     <string name="label_menu_restore">Restore Data</string>
-    <string name="label_menu_set_alarm_time">Set Alarm Time</string>
+    <string name="label_menu_set_alarm_time">Set Option</string>
     <string name="label_menu_test_alarm">Test Alarm</string>
     <string name="label_mesg_1">HomePage URL :</string>
     <string name="label_mesg_2">This program converts the lunar calendar into a lift and registers it on the schedule.</string>
@@ -75,10 +75,18 @@
     <string name="label_menu_sms">SMS Send</string>
     <string name="label_msg_pay_sms">Pay send a SMS ???</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-5706840078904135/7570896839</string>
+    <string name="banner_ad_unit_id_for_test" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="msgBackup">Backup Execute.</string>
-    <string name="msgBackupCompiled">Backup COmplied</string>
+    <string name="msgBackupCompiled">Backup Complied</string>
     <string name="msgNotBackup">Error for Backup</string>
     <string name="label_restore">Restore Execute</string>
     <string name="mesg_restore_err">Error for Restore</string>
     <string name="mesg_restore_ok">Restore Compiled</string>
+    <string name="label_title_alarm_set">Select on Alram TIme</string>
+    <string name="label_standard_time">Standard Hour</string>
+    <string name="label_save">Save</string>
+    <string name="label_google_calendar">Google Account</string>
+    <string name="label_delete">Delete</string>
+    <string name="label_sms_send">SMS Send</string>
+    <string name="label_finish_apps">press Back once for Finish</string>
 </resources>

@@ -32,71 +32,10 @@ public class CalendarWrite extends Activity {
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.calendarread);
-        
-        Uri calendars = null ;
-		
-		if (android.os.Build.VERSION.SDK_INT == 7) {
-        	calendars = Uri.parse("content://calendar/calendars") ;
-        } else {
-        	calendars = Uri.parse("content://com.android.calendar/calendars") ;
-        }
 
-		String[] projection_calendars = null ;
-		Cursor Cursor_calendars = null ;
-		if (android.os.Build.VERSION.SDK_INT < 14) {
-			projection_calendars = new String[] { "_id", "name", "_sync_account_type" };
-			Cursor_calendars = getContentResolver().query(calendars,	projection_calendars, "selected=1", null, null);
-		} else {
-			projection_calendars = new String[] {"_id",  "name", "account_type"} ;
-			Cursor_calendars = getContentResolver().query(calendars, projection_calendars, "visible=1", null, null) ;
-		}
-        
-        if(Cursor_calendars.moveToFirst()) {
-        	boolean chk_google = false ;
-        	int[] _id                   = new int[Cursor_calendars.getCount()];
-        	String[] calendars_name     = new String[Cursor_calendars.getCount()];
-        	String[] _sync_account_type  = new String[Cursor_calendars.getCount()];
-        	
-        	for (int i = 0 ; i < calendars_name.length ; i++) {
-        		_id[i] = Cursor_calendars.getInt(0);
-        		calendars_name[i] = Cursor_calendars.getString(1);
-        		_sync_account_type[i] = Cursor_calendars.getString(2);
-        		if (calendars_name[i].indexOf("@gmail.com") > 0) {
-        			chk_google = true ;
-        			google_index = _id[i] ;
-                    break;
-        		}
-        		Cursor_calendars.moveToNext() ;
-        	}
-        	Cursor_calendars.close();
-			Log.d(TAG, "선택된 메일 :" + google_index + "><" + calendars_name[google_index] + ">");
-			
-			if (!chk_google) {
-
-				DialogInterface.OnClickListener mClickLeft =
-					new DialogInterface.OnClickListener() {
-						
-						public void onClick(DialogInterface dialog, int which) {
-							finish() ;
-						}
-					};
-					
-	        	DialogInterface.OnClickListener mClickRight =
-					new DialogInterface.OnClickListener() {
-						
-						public void onClick(DialogInterface dialog, int which) {
-							finish() ;
-						}
-					};
-
-				new AlertDialog.Builder(this)
-		    	.setTitle(getResources().getString(R.string.label_notify) )
-		    	.setMessage(getResources().getString(R.string.label_mesg_not_sync) )
-		    	.setPositiveButton(getResources().getString(R.string.label_btn_continue) , mClickLeft)
-		    	.setNegativeButton(getResources().getString(R.string.label_cancel_btn) , mClickRight)
-		    	.show() ;
-			}				
-        }
+		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
+		final String time = pref.getString("Time", "0800") ;
+		google_index = Integer.parseInt( pref.getString("CalendarID","3") ) ;
             	
     	DialogInterface.OnClickListener mClickLeft =
 			new DialogInterface.OnClickListener() {
