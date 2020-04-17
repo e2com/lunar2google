@@ -1,8 +1,7 @@
-package com.nari.lunar2google;
+package com.nari.lunar3google;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -10,10 +9,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -40,8 +39,13 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.credentials.Credential;
+import com.google.android.gms.auth.api.credentials.HintRequest;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,6 +53,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 
 /**
@@ -57,6 +62,8 @@ import java.util.Calendar;
  * 광고 단위 ID: ca-app-pub-5706840078904135/7570896839
  */
 public class LunarGugul extends AppCompatActivity {
+
+	private static final int RESOLVE_HINT = 100;
 	static DBHandler dbHandler;
 	final static int ACT_EDIT = 0;
 	static String chk_date = "";
@@ -102,7 +109,6 @@ public class LunarGugul extends AppCompatActivity {
 		AdRequest adReqeust = new AdRequest.Builder().build();
 		mAdView.loadAd(adReqeust);
         // end adMob
-
 	}
 
 	@Override
@@ -148,11 +154,34 @@ public class LunarGugul extends AppCompatActivity {
 		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
 		String googleId = pref.getString("CalendarID","") ;
 		if ("".equals(googleId)) {
-			CalendarIdRef calendarIdRef = new CalendarIdRef();
-			ArrayList<String> googleIds = calendarIdRef.CalendarIdRef(LunarGugul.this);
-			// 구글 계정이 없으니 그만
-			if (googleIds.size() < 1) {
-				finish();
+			if (checkFunction("READ_CALENDAR")) {
+				CalendarIdRef calendarIdRef = new CalendarIdRef();
+				HashMap<String, Integer> googleIds = calendarIdRef.CalendarIdRef(LunarGugul.this);
+				Log.e(TAG, "googleIds.size()=" + googleIds.size()) ;
+				// 구글 계정이 없으니 그만
+				if (googleIds.size() < 1) {
+
+					DialogInterface.OnClickListener mClickLeft = new DialogInterface.OnClickListener() {
+
+						public void onClick(DialogInterface dialog, int which) {
+							finish() ;
+						}
+					};
+
+					DialogInterface.OnClickListener mClickRight = new DialogInterface.OnClickListener() {
+
+						public void onClick(DialogInterface dialog, int which) {
+							finish();
+						}
+					};
+
+					new AlertDialog.Builder(LunarGugul.this).setTitle(getResources().getString(R.string.label_notify))
+							.setMessage(getResources().getString(R.string.label_mesg_not_sync))
+							.setPositiveButton(getResources().getString(R.string.label_btn_continue), mClickLeft)
+							.setNegativeButton(getResources().getString(R.string.label_cancel_btn), mClickRight).show();
+
+					//finish();
+				}
 			}
 		}
 
@@ -252,9 +281,12 @@ public class LunarGugul extends AppCompatActivity {
 			
 			return true;
 		case R.id.action_menu_get_schedule:
+
+/* 한동안은 가져오는 건 하지 말자...
 			Intent intent4 = new Intent(this, CalendarRead.class);
 			intent4.putExtra("Textin", "CalendarRead");
-			startActivityForResult(intent4, ACT_EDIT);
+			startActivityForResult(intent4, ACT_EDIT);*/
+
 			return true;
 		case R.id.action_menu_today:
 			Intent intent5 = new Intent(this, CalendarView.class);
@@ -272,6 +304,7 @@ public class LunarGugul extends AppCompatActivity {
 							.show();
 				}
 			}
+
 			/*  외부파일에 기록하는 것은 나중에 db layout 이 변동되면 그걸 해소하기 위한 방법으로 다가
 			try {
 				FileOutputStream fos = openFileOutput("lunarPlan.txt", Context.MODE_PRIVATE ) ;
@@ -510,9 +543,18 @@ public class LunarGugul extends AppCompatActivity {
 		}
 	}
 
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 		doDisplayData();
+
+		if (requestCode == RESOLVE_HINT) {
+			if (resultCode == RESULT_OK) {
+				Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
+				// credential.getId();  <-- will need to process phone number string
+				Log.e(TAG, "credential.getId()=" + credential.getId()) ;
+			}
+		}
     }
 
 	/**
@@ -630,16 +672,20 @@ public class LunarGugul extends AppCompatActivity {
 	
 	public static String padTelno(String iTelno) {
 		String return_value = "" ;
-		try {
-			if (iTelno.length() < 11) {
-				return_value = iTelno.substring(0, 3) + "-" + iTelno.substring(3, 6) + "-" + iTelno.substring(6, 10);
-			} else {
-				return_value = iTelno.substring(0, 3) + "-" + iTelno.substring(3, 7) + "-" + iTelno.substring(7, 11);
+		int idx = iTelno.indexOf("-") ;
+		if (idx < 0) {
+			try {
+				if (iTelno.length() < 11) {
+					return_value = iTelno.substring(0, 3) + "-" + iTelno.substring(3, 6) + "-" + iTelno.substring(6, 10);
+				} else {
+					return_value = iTelno.substring(0, 3) + "-" + iTelno.substring(3, 7) + "-" + iTelno.substring(7, 11);
+				}
+			} catch (Exception e) {
+				return_value = iTelno ;
 			}
-		} catch (Exception e) {
+		} else {
 			return_value = iTelno ;
 		}
-		
 		return return_value ;
 	}
 

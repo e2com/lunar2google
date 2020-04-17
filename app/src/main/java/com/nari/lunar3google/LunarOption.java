@@ -1,7 +1,6 @@
-package com.nari.lunar2google;
+package com.nari.lunar3google;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +14,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class LunarOption extends Activity {
 
@@ -36,19 +37,32 @@ public class LunarOption extends Activity {
 		Log.e(TAG, "googleType=" + googleType) ;
 
 		CalendarIdRef calendarIdRef = new CalendarIdRef();
-		final ArrayList<String> googleIds = calendarIdRef.CalendarIdRef(LunarOption.this);
+		final HashMap<String, Integer> googleIds = calendarIdRef.CalendarIdRef(LunarOption.this);
 
+		Log.e(TAG, "googleIds=" + googleIds.size()) ;
+		Set<String> hashKey = googleIds.keySet() ;
+		final ArrayList<String> strGoogleNames = new ArrayList<String>(hashKey) ;
 		Spinner spinner = findViewById(R.id.googleId) ;
-		spinner.setAdapter(new ArrayAdapter<>(LunarOption.this, android.R.layout.simple_spinner_dropdown_item, googleIds));
-		spinner.setSelection(Integer.parseInt(googleId));
+		spinner.setAdapter(new ArrayAdapter<>(LunarOption.this, android.R.layout.simple_spinner_dropdown_item, strGoogleNames));
+		int idx = 0 ;
+		for(int i=0 ; i < strGoogleNames.size() ; i++) {
+			if (googleName.equals(strGoogleNames.get(i))) {
+				idx = i ;
+				break ;
+			};
+		}
+		spinner.setSelection(idx);
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
 				SharedPreferences.Editor edit = pref.edit() ;
 
-				edit.putString("CalendarID", String.valueOf(position)) ;
-				edit.putString("CalendarName", googleIds.get(position)) ;
+				edit.putString("CalendarID", String.valueOf(googleIds.get(strGoogleNames.get(position)))) ;
+				edit.putString("CalendarName", strGoogleNames.get(position)) ;
+
+				Log.e(TAG, "set id name=" + googleIds.get(strGoogleNames.get(position))) ;
+				Log.e(TAG, "set positoin name=" + strGoogleNames.get(position)) ;
 
 				edit.commit() ;
 			}
@@ -59,21 +73,21 @@ public class LunarOption extends Activity {
 		});
 
 		timeEntry = (TimePicker) findViewById(R.id.AlramTime) ;
-	        try {
-	        	timeEntry.setHour(Integer.parseInt(time.substring(0, 2))) ;
-	        	timeEntry.setMinute(Integer.parseInt(time.substring(2, 4))) ;
-	        } catch(Exception e) {
-	        	Toast.makeText(this, time, Toast.LENGTH_LONG).show() ;
-	        }
+		try {
+			timeEntry.setHour(Integer.parseInt(time.substring(0, 2))) ;
+			timeEntry.setMinute(Integer.parseInt(time.substring(2, 4))) ;
+		} catch(Exception e) {
+			Toast.makeText(this, time, Toast.LENGTH_LONG).show() ;
+		}
 
-	        Button save_btn = (Button) findViewById(R.id.save_btn) ;
-	        save_btn.setOnClickListener(new OnClickListener(){
+		Button save_btn = (Button) findViewById(R.id.save_btn) ;
+		save_btn.setOnClickListener(new OnClickListener(){
 
-				public void onClick(View v) {
-					finish() ;
-				}
-	        	
-	        }) ;
+			public void onClick(View v) {
+				finish() ;
+			}
+
+		}) ;
 	        
 	 }
 	 

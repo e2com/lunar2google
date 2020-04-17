@@ -1,4 +1,4 @@
-package com.nari.lunar2google;
+package com.nari.lunar3google;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -8,14 +8,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CalendarIdRef {
 
     String TAG = "CalendarIdRef" ;
 
-    public ArrayList<String> CalendarIdRef(Context context) {
-        ArrayList<String> googleIds = new ArrayList<String>();
+    public HashMap<String, Integer> CalendarIdRef(Context context) {
+        HashMap<String, Integer> googleIds = new HashMap<String, Integer>();
         Uri calendars = null;
 
         if (android.os.Build.VERSION.SDK_INT == 7) {
@@ -57,9 +57,9 @@ public class CalendarIdRef {
                         edit.putString("CalendarType", _sync_account_type[i]) ;
                         edit.commit() ;
                         if (calendars_name[i] != null) {
-                            googleIds.add(calendars_name[i]);
+                            googleIds.put(calendars_name[i], _id[i]);
                         }
-                        //break ; // 2017.04.05 한개만 찾으면 되기 때문에
+                        Log.e(TAG, "calendars_name=" + calendars_name[i])  ;
                     }
                     Cursor_calendars.moveToNext();
                 }

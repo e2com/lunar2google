@@ -1,4 +1,4 @@
-package com.nari.lunar2google;
+package com.nari.lunar3google;
 
 import android.app.Activity;
 import android.content.Context;
