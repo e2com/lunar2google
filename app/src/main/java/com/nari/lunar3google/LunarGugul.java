@@ -29,10 +29,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -45,15 +47,24 @@ import com.google.android.gms.auth.api.credentials.HintRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.Api;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -92,6 +103,7 @@ public class LunarGugul extends AppCompatActivity {
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				Log.e(TAG, "onClick... fab ") ;
 				Intent intent = new Intent(LunarGugul.this, EntryData.class);
 				intent.putExtra("TextIn", "test");
 				startActivityForResult(intent, ACT_EDIT);
@@ -109,16 +121,15 @@ public class LunarGugul extends AppCompatActivity {
 		AdRequest adReqeust = new AdRequest.Builder().build();
 		mAdView.loadAd(adReqeust);
         // end adMob
-	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
+		if (checkFunction("WRITE_CALENDAR")) {
+			if (!onRefreshData()) {
 
-		if (checkFunction("READ_CALENDAR")) {
-			onRefreshData() ;
+				// finish();
+			}
 		}
 
+		doDisplayData();
 	}
 
 	/**
@@ -130,7 +141,16 @@ public class LunarGugul extends AppCompatActivity {
 		// 이것 막고 새로 만들걸루 대체
 		backPressCloseHandler.onBackPressed();
 
-		onRefreshData() ;
+		doDisplayData() ;
+	}
+
+	// Obtain the phone number from the result
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		doDisplayData();
+
 	}
 
 	/**
@@ -181,17 +201,21 @@ public class LunarGugul extends AppCompatActivity {
 							.setNegativeButton(getResources().getString(R.string.label_cancel_btn), mClickRight).show();
 
 					//finish();
+				} else {
+					bResult = true ;
 				}
 			}
 		}
 
-		doDisplayData();
+		if (bResult) {
+			doDisplayData();
+		}
 
 		return bResult ;
 	}
 
 	public boolean checkFunction(String option){
-		boolean bResult = true ;
+		boolean bResult = false ;
 		chkPermission.clear();
 
 		int permissioninfo = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) ;
@@ -203,14 +227,6 @@ public class LunarGugul extends AppCompatActivity {
 			if (permissioninfo != PackageManager.PERMISSION_GRANTED) {
 				chkPermission.add(Manifest.permission.READ_CALENDAR);
 			}
-		}
-		permissioninfo = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) ;
-		if (permissioninfo != PackageManager.PERMISSION_GRANTED) {
-			chkPermission.add(Manifest.permission.SEND_SMS);
-		}
-		permissioninfo = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) ;
-		if (permissioninfo != PackageManager.PERMISSION_GRANTED) {
-			chkPermission.add(Manifest.permission.READ_SMS);
 		}
 		permissioninfo = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE) ;
 		if (permissioninfo != PackageManager.PERMISSION_GRANTED) {
@@ -244,16 +260,20 @@ public class LunarGugul extends AppCompatActivity {
 			String strArray[] = new String[chkPermission.size()] ;
 			strArray = chkPermission.toArray(strArray) ;
 			ActivityCompat.requestPermissions(this, strArray, PERMISSION_REQUEST_CODE);
+		} else {
+			bResult = true ;
 		}
 
 		return bResult ;
 	}
 
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
 		return true;
 	}
 
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_menu_append:
@@ -458,8 +478,8 @@ public class LunarGugul extends AppCompatActivity {
 			String strPath = Environment.getExternalStorageDirectory().getAbsolutePath() ;
 			Log.e(TAG, "filePath=" + strPath) ;
 
-			File dbFile = new File(Environment.getDataDirectory() + "/data/com.nari.lunar2google/databases/myLunarPlan");
-			File exportDir = new File(Environment.getExternalStorageDirectory(), "lunar2google");
+			File dbFile = new File(Environment.getDataDirectory() + "/data/com.nari.lunar3google/databases/myLunarPlan");
+			File exportDir = new File(Environment.getExternalStorageDirectory(), "lunar3google");
 			Log.e(TAG, "BACKUP DIR=" + exportDir.getAbsolutePath());
 			if (!exportDir.exists()) {
 				exportDir.mkdirs();
@@ -469,6 +489,7 @@ public class LunarGugul extends AppCompatActivity {
 			try {
 				file.createNewFile();
 				FileUtil.copyFile(dbFile, file);
+				Log.e(TAG, "BACKUP Compiled" ) ;
 				return true;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -507,7 +528,7 @@ public class LunarGugul extends AppCompatActivity {
 		@Override
 		protected String doInBackground(final Void... args) {
 
-			File dbBackupFile = new File( Environment.getExternalStorageDirectory() + "/lunar2google/myLunarPlan.sqlite");
+			File dbBackupFile = new File( Environment.getExternalStorageDirectory() + "/lunar3google/myLunarPlan.sqlite");
 			Log.e(TAG, "RESTORE FILE=" +dbBackupFile.getAbsolutePath());
 			if (!dbBackupFile.exists()) {
 				return getResources().getString(R.string.mesg_restore_err);
@@ -515,7 +536,7 @@ public class LunarGugul extends AppCompatActivity {
 				return getResources().getString(R.string.mesg_restore_err);
 			}
 
-			File dbFile = new File(Environment.getDataDirectory() + "/data/com.nari.lunar2google/databases/myLunarPlan");
+			File dbFile = new File(Environment.getDataDirectory() + "/data/com.nari.lunar3google/databases/myLunarPlan");
 			if (dbFile.exists()) {
 				dbFile.delete();
 			}
@@ -542,20 +563,6 @@ public class LunarGugul extends AppCompatActivity {
 			}
 		}
 	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-		doDisplayData();
-
-		if (requestCode == RESOLVE_HINT) {
-			if (resultCode == RESULT_OK) {
-				Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
-				// credential.getId();  <-- will need to process phone number string
-				Log.e(TAG, "credential.getId()=" + credential.getId()) ;
-			}
-		}
-    }
 
 	/**
 	 * 등록된 데이터 조회 처리

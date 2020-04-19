@@ -74,7 +74,7 @@
     <string name="label_invalid_phone_no">Invalid phone number.</string>
     <string name="label_menu_sms">SMS Send</string>
     <string name="label_msg_pay_sms">Pay send a SMS ???</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-5706840078904135/7570896839</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-5706840078904135/2101590289</string>
     <string name="banner_ad_unit_id_for_test" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="msgBackup">Backup Execute.</string>
     <string name="msgBackupCompiled">Backup Complied</string>

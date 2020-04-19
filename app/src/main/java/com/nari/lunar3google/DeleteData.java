@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -244,15 +243,15 @@ public class DeleteData extends Activity {
 								//uSync_stat = sync_stat ;
 							
 								if (uMobilno.length() > 9) {
-									SmsManager sms = SmsManager.getDefault();
-									sms.sendTextMessage(uMobilno, null, "<" + uName + ">" + uSubject , null, null);
+									//SmsManager sms = SmsManager.getDefault();
+									//sms.sendTextMessage(uMobilno, null, "<" + uName + ">" + uSubject , null, null);
 								    
-									// SMS 발송 
-							        //Uri uri = Uri.parse("smsto:" + uMobilno);    
-							        //Intent it = new Intent(Intent.ACTION_SENDTO, uri);    
-							        //it.putExtra("sms_body", "<" + uName + ">" + uSubject);    
-							        //startActivity(it); 
-							        
+									// SMS 발송 권한을 사용할 수 없기 때문에 기본 문자앱으로 전달만
+							        Uri uri = Uri.parse("smsto:" + uMobilno);
+									Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+									it.putExtra("sms_body", "<" + uName + ">" + uSubject);
+									startActivity(it);
+
 									Toast.makeText(getBaseContext(), getResources().getString(R.string.label_completed_SMS),	Toast.LENGTH_LONG).show() ;
 								} else {
 									Toast.makeText(getBaseContext(), getResources().getString(R.string.label_not_found_phone),	Toast.LENGTH_LONG).show() ;
@@ -361,15 +360,37 @@ public class DeleteData extends Activity {
 			
 		}
 	};
-	
-	public void onDestroy(Bundle savedInstanceState) {
-		try {
-			dbHandler.close() ;
-		} finally {
-			
-		}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		dbHandler.close();
 	}
-	
+
+	/**
+	 * 문자 보내기를 직접 하지 않도록 수정 2020.04.19
+	 * @param message
+	 * @param attachment
+	 */
+	public void composeMmsMessage(String message, Uri attachment) {
+
+		Log.e(TAG, "composeMmsMessage===" +  message) ;
+/*		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.putExtra("sms_body", message);
+		intent.putExtra(Intent.EXTRA_STREAM, attachment);
+		if (intent.resolveActivity(getPackageManager()) != null) {
+			Log.e(TAG, "startActivity...");
+			startActivity(intent);
+		}*/
+
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setData(Uri.parse("smsto:"));  // This ensures only SMS apps respond
+		intent.putExtra("sms_body", message);
+		intent.putExtra(Intent.EXTRA_STREAM, attachment);
+		startActivity(intent);
+
+	}
+
 	public void AlarmSet(String base_date, int lunar_ty, int leap_ty) {
     	
     	long time = System.currentTimeMillis();
