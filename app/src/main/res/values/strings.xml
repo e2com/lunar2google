@@ -89,4 +89,16 @@
     <string name="label_delete">Delete</string>
     <string name="label_sms_send">SMS Send</string>
     <string name="label_finish_apps">press Back once for Finish</string>
+    <string name="labelSun">Sun</string>
+    <string name="labelMon">Mon</string>
+    <string name="labelTue">Tue</string>
+    <string name="labelWed">Wed</string>
+    <string name="labelThr">Thr</string>
+    <string name="labelFri">Fri</string>
+    <string name="labelSat">Sat</string>
+    <string name="strDescript" translatable="false">TODO</string>
+    <string name="labelTItle">Title</string>
+    <string name="label_entry_date">Enter Date of Year</string>
+    <string name="label_menu_month">Monthly Calendar</string>
+
 </resources>

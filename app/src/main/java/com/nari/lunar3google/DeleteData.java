@@ -22,6 +22,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.nari.lunar3google.service.AlarmReceiver;
+import com.nari.lunar3google.util.DBHandler;
+import com.nari.lunar3google.util.LunarTranser;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

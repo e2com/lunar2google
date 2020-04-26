@@ -1,8 +1,10 @@
-package com.nari.lunar3google;
+package com.nari.lunar3google.util;
 
 import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.nari.lunar3google.R;
 
 public class BackPressCloseHandler {
 

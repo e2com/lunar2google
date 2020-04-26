@@ -16,6 +16,10 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.nari.lunar3google.service.AlarmReceiver;
+import com.nari.lunar3google.util.DBHandler;
+import com.nari.lunar3google.util.LunarTranser;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,8 +60,8 @@ public class CalendarWrite extends Activity {
 			        
 			        SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
 			        String AlramSetTime = pref.getString("Time", "0800") ;
-					int startHour = Integer.valueOf(AlramSetTime.substring(0, 2)) ;
-			        int startMinute = Integer.valueOf(AlramSetTime.substring(2, 4)) ;
+					int startHour = Integer.parseInt(AlramSetTime.substring(0, 2)) ;
+			        int startMinute = Integer.parseInt(AlramSetTime.substring(2, 4)) ;
 			        int endHour = startHour ;
 			        int endMinute = startMinute ;
 					int year = 0 ;
@@ -77,37 +81,37 @@ public class CalendarWrite extends Activity {
 						String mobil_no = cursor.getString(7) ;
 						
 						for(int nextYear=0;nextYear < 10 ; nextYear++) { // 앞으로 10년 동안 반복해서 기록하기... 2011.07.29 
-							int chk_yy = Integer.valueOf( sdf.format(dd).toString().substring(0, 4) ) + nextYear ;
+							int chk_yy = Integer.parseInt( sdf.format(dd).toString().substring(0, 4) ) + nextYear ;
 							String chk_date = String.valueOf(chk_yy) + base_date.substring(4, 8) ;
 							if (lunar_ty == 1) {
 								// 음력기록하기
 								if (leap_ty == 1) { // 윤달 음력
 									try {
-										year = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(0, 4) ) ;
-										month = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(4, 6) ) ;
-										day = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(6, 8) ) ;
+										year = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(0, 4) ) ;
+										month = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(4, 6) ) ;
+										day = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(6, 8) ) ;
 									
 									} catch (Exception e) {
-										year = Integer.valueOf(chk_date.substring(0, 4)) ;
-										month = Integer.valueOf(chk_date.substring(4, 6)) ;
-										day = Integer.valueOf(chk_date.substring(6, 8)) ;
+										year = Integer.parseInt(chk_date.substring(0, 4)) ;
+										month = Integer.parseInt(chk_date.substring(4, 6)) ;
+										day = Integer.parseInt(chk_date.substring(6, 8)) ;
 									}
 								} else { // 그냥 음력
 									try {
-										year = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(0, 4) ) ;
-										month = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(4, 6) ) ;
-										day = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(6, 8) ) ;
+										year = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(0, 4) ) ;
+										month = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(4, 6) ) ;
+										day = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(6, 8) ) ;
 									} catch (Exception e) {
-										year = Integer.valueOf(chk_date.substring(0, 4)) ;
-										month = Integer.valueOf(chk_date.substring(4, 6)) ;
-										day = Integer.valueOf(chk_date.substring(6, 8)) ;
+										year = Integer.parseInt(chk_date.substring(0, 4)) ;
+										month = Integer.parseInt(chk_date.substring(4, 6)) ;
+										day = Integer.parseInt(chk_date.substring(6, 8)) ;
 									}
 								}
 							} else {
 								// 양력도 기록하기
-								year = Integer.valueOf(chk_date.substring(0, 4)) ;
-								month = Integer.valueOf(chk_date.substring(4, 6)) ;
-								day = Integer.valueOf(chk_date.substring(6, 8)) ;
+								year = Integer.parseInt(chk_date.substring(0, 4)) ;
+								month = Integer.parseInt(chk_date.substring(4, 6)) ;
+								day = Integer.parseInt(chk_date.substring(6, 8)) ;
 							}
 							
 							month = month - 1 ; // 달력에 기록되는 월은 0 ~ 11까지로 되어 있는디 이유는 모름...
@@ -274,8 +278,8 @@ public class CalendarWrite extends Activity {
         // 알림설정 end
 		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
         String AlramSetTime = pref.getString("Time", "0800") ;
-		int startHour = Integer.valueOf(AlramSetTime.substring(0, 2)) ;
-        int startMinute = Integer.valueOf(AlramSetTime.substring(2, 4)) ;
+		int startHour = Integer.parseInt(AlramSetTime.substring(0, 2)) ;
+        int startMinute = Integer.parseInt(AlramSetTime.substring(2, 4)) ;
 		int year = 0 ;
 		int month = 0 ;
 		int day = 0 ;
@@ -285,31 +289,31 @@ public class CalendarWrite extends Activity {
 			// 음력기록하기
 			if (leap_ty == 1) { // 윤달 음력
 				try {
-					year = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(0, 4) ) ;
-					month = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(4, 6) ) ;
-					day = Integer.valueOf( LunarTranser.LunarTranse(chk_date, true).substring(6, 8) ) ;
+					year = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(0, 4) ) ;
+					month = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(4, 6) ) ;
+					day = Integer.parseInt( LunarTranser.LunarTranse(chk_date, true).substring(6, 8) ) ;
 				
 				} catch (Exception e) {
-					year = Integer.valueOf(chk_date.substring(0, 4)) ;
-					month = Integer.valueOf(chk_date.substring(4, 6)) ;
-					day = Integer.valueOf(chk_date.substring(6, 8)) ;
+					year = Integer.parseInt(chk_date.substring(0, 4)) ;
+					month = Integer.parseInt(chk_date.substring(4, 6)) ;
+					day = Integer.parseInt(chk_date.substring(6, 8)) ;
 				}
 			} else { // 그냥 음력
 				try {
-					year = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(0, 4) ) ;
-					month = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(4, 6) ) ;
-					day = Integer.valueOf( LunarTranser.LunarTranse(chk_date, false).substring(6, 8) ) ;
+					year = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(0, 4) ) ;
+					month = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(4, 6) ) ;
+					day = Integer.parseInt( LunarTranser.LunarTranse(chk_date, false).substring(6, 8) ) ;
 				} catch (Exception e) {
-					year = Integer.valueOf(chk_date.substring(0, 4)) ;
-					month = Integer.valueOf(chk_date.substring(4, 6)) ;
-					day = Integer.valueOf(chk_date.substring(6, 8)) ;
+					year = Integer.parseInt(chk_date.substring(0, 4)) ;
+					month = Integer.parseInt(chk_date.substring(4, 6)) ;
+					day = Integer.parseInt(chk_date.substring(6, 8)) ;
 				}
 			}
 		} else {
 			// 양력도 기록하기
-			year = Integer.valueOf(chk_date.substring(0, 4)) ;
-			month = Integer.valueOf(chk_date.substring(4, 6)) ;
-			day = Integer.valueOf(chk_date.substring(6, 8)) ;
+			year = Integer.parseInt(chk_date.substring(0, 4)) ;
+			month = Integer.parseInt(chk_date.substring(4, 6)) ;
+			day = Integer.parseInt(chk_date.substring(6, 8)) ;
 		}
 		
 		month = month - 1 ; // 달력에 기록되는 월은 0 ~ 11까지로 되어 있는디 이유는 모름...

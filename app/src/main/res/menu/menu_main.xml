@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.nari.lunar3google.LunarGugul">
+    tools:context="com.nari.lunar3google.util.DBHandler$LunarGugul">
     <item
         android:id="@+id/action_menu_append"
         android:icon="@drawable/ic_menu_business"
@@ -24,7 +24,7 @@
         android:id="@+id/action_menu_get_schedule"
         android:icon="@drawable/ic_menu_tick"
         android:orderInCategory="100"
-        android:title="@string/label_menu_get_schedule"
+        android:title="@string/label_menu_month"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_menu_today"

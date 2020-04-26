@@ -1,4 +1,4 @@
-package com.nari.lunar3google;
+package com.nari.lunar3google.util;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,4 +1,4 @@
-package com.nari.lunar3google;
+package com.nari.lunar3google.service;
 
 import android.app.Service;
 import android.content.Intent;

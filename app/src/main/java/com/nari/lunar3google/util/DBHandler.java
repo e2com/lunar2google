@@ -1,4 +1,4 @@
-package com.nari.lunar3google;
+package com.nari.lunar3google.util;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -160,6 +160,5 @@ public class DBHandler {
 		values.put("sync_stat", sync_stat);
 		long result = db.update("lunarPlan", values, "_id=" + id , null);
 		return result;
-	}	
-	
+	}
 }

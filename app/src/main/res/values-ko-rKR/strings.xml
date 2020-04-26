@@ -82,4 +82,14 @@
     <string name="label_delete">삭제</string>
     <string name="label_sms_send">문자전송</string>
     <string name="label_finish_apps">종료를 하려면 한번더 뒤로가기를 클릭하세요</string>
+    <string name="labelSun">일</string>
+    <string name="labelMon">월</string>
+    <string name="labelTue">화</string>
+    <string name="labelWed">수</string>
+    <string name="labelThr">목</string>
+    <string name="labelFri">금</string>
+    <string name="labelSat">토</string>
+    <string name="labelTItle">제목</string>
+    <string name="label_entry_date">날자를 입력하세요</string>
+    <string name="label_menu_month">월간일정</string>
 </resources>

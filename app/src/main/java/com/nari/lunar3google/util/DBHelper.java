@@ -1,4 +1,4 @@
-package com.nari.lunar3google;
+package com.nari.lunar3google.util;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

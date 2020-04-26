@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageButton
+            android:id="@+id/btnPrevious2"
+            tools:ignore="NestedWeights"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/strDescript"
+            app:srcCompat="@android:drawable/ic_media_previous" />
+
+        <EditText
+            android:id="@+id/editMonth2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/label_entry_date"
+            android:inputType="date" />
+
+        <ImageButton
+            android:id="@+id/btnNext2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/strDescript"
+            app:srcCompat="@android:drawable/ic_media_next" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gridMonth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:numColumns="7" />
+
+    <ListView
+        android:id="@+id/dataView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" />
+</LinearLayout>

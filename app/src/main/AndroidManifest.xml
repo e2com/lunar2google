@@ -2,31 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nari.lunar3google">
 
-    <uses-permission android:name="android.permission.WRITE_OWNER_DATA"/>
-    <uses-permission android:name="android.permission.READ_OWNER_DATA"/>
-
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
+    <uses-permission android:name="android.permission.READ_OWNER_DATA" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_logo"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/icon_logo"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".CalendarMonth"
+            android:label="@string/label_menu_month"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5706840078904135~8666998632"/>
+            android:value="ca-app-pub-5706840078904135~8666998632" />
+
         <activity
-            android:name="com.nari.lunar3google.LunarGugul"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -35,18 +39,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.nari.lunar3google.EntryData"/>
-        <activity android:name="com.nari.lunar3google.CalendarRead"/>
-        <activity android:name="com.nari.lunar3google.CalendarView"/>
-        <activity android:name="com.nari.lunar3google.CalendarWrite"/>
-        <activity android:name="com.nari.lunar3google.DeleteData"/>
-        <activity android:name="com.nari.lunar3google.LunarOption"/>
-        <receiver android:name="com.nari.lunar3google.AlarmReceiver"/>
-        <activity android:name="com.google.android.gms.ads.AdActivity"
+        <activity android:name=".EntryData" />
+        <activity android:name=".CalendarRead" />
+        <activity android:name=".CalendarView" />
+        <activity android:name=".CalendarWrite" />
+        <activity android:name=".DeleteData" />
+        <activity android:name=".LunarOption" />
+
+        <receiver android:name=".service.AlarmReceiver" />
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent"/>
-
-
+            android:theme="@android:style/Theme.Translucent" />
     </application>
 
 </manifest>

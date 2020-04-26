@@ -1,26 +1,4 @@
-package com.nari.lunar3google;
-
-/* ---------------------------------------------------------------------
- * @(#)AnniversaryOracleDBWrapper.java
- * @Modifier   ray1212
- * @Creator    ray1212
- * @version    1.0
- * @date       2004-05-08
- * ---------------------------------------------------------------------
- * Copyright 1999-2003 by Traniz, Inc.,
- * Information Technology Group, Application Architecture Team,
- * Application Infrastructure Part.
- * 236-1, Seocho-2dong, Seoucho-gu, Seoul, 1362-14, KOREA.
- * All rights reserved.
- * ---------------------------------------------------------------------
- * NOTICE ! You can copy or redistribute this code freely,
- * but you should not remove the information about the copyright notice
- * and the author.
- *
- * For more information on the Traniz.com, please see
- * <http://www.traniz.com/>.
- * ---------------------------------------------------------------------
- */
+package com.nari.lunar3google.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -249,13 +227,10 @@ public class LunarTranser {
         31, 28, 31, 30, 31, 30, 31, 31, 30, 31,
         30, 31
     };
-   
 
     private static Date init_date;
 
     private static final String errMsg = "입력값 에러";
-  
-
 
     /**
      * 음력을 양력으로
