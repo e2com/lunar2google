@@ -5,30 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="20">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="horizontal" />
 
     <LinearLayout
         android:id="@+id/titleView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="horizontal"
         android:weightSum="10">
 
         <ImageButton
             android:id="@+id/btnPrevious2"
-            tools:ignore="NestedWeights"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/strDescript"
-            app:srcCompat="@android:drawable/ic_media_previous" />
+            app:srcCompat="@android:drawable/ic_media_previous"
+            tools:ignore="NestedWeights" />
 
         <EditText
             android:id="@+id/editMonth2"
@@ -37,6 +37,7 @@
             android:layout_weight="8"
             android:autofillHints=""
             android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
             android:hint="@string/label_entry_date"
             android:inputType="date" />
 
@@ -53,7 +54,7 @@
         android:id="@+id/gridMonth"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="13"
         android:numColumns="7" />
 
     <ListView

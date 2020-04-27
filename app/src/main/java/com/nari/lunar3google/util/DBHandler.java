@@ -74,16 +74,15 @@ public class DBHandler {
 		}
 		return cursor;
 	}
-	
+
+	/**
+	 *
+	 * @param BaseDate : 양력날자
+	 * @return : 양력/음력에 등록된 일정
+	 */
 	public Cursor selectBaseDate(String BaseDate){
 		String lunar_date1 = "" ;
 		String lunar_date2 = "" ;
-		String solar_date = "" ;
-		try {
-			solar_date = LunarTranser.solarTranse(BaseDate) ;
-		} catch (Exception e) {
-			solar_date = BaseDate ;
-		}
 		try {
 			lunar_date1 = LunarTranser.LunarTranse(BaseDate, true) ;
 		} catch (Exception e) {
@@ -94,25 +93,14 @@ public class DBHandler {
 		} catch (Exception e) {
 			lunar_date2 = BaseDate ;
 		}
-		if ("".equals(lunar_date1)) {
-			lunar_date1 = BaseDate ;
-		}
-		if ("".equals(lunar_date2)) {
-			lunar_date2 = BaseDate ;
-		}
-		if ("".equals(solar_date)) {
-			solar_date = BaseDate ;
-		}
 		// 왜 이렇게는 검색이 한개만 되는 것일까 ???
-		String sql = "select * from lunarPlan where base_date in ('" + solar_date + "', '" + lunar_date1 + "', '" + lunar_date2 + "', '" + BaseDate + "') order by base_date" ;
-		//String sql = "select * from lunarPlan where base_date = '" + lunar_date2 + "'" ;
+		String sql = "select * from lunarPlan where (base_date = '" + BaseDate +
+				"') or (base_date = '" + lunar_date1 + "' and lunar_ty = '1' and leap_ty = '1') " +
+				"or (base_date = '" + lunar_date2 + "' and lunar_ty = '1' and leap_ty = '0') order by base_date" ;
 		Log.i(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
 		Log.i(">>>", sql) ;
 		Log.i(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
 		Cursor cursor = db.rawQuery(sql, null);
-		if(cursor != null){
-			cursor.moveToFirst();
-		}
 		return cursor;
 	}
 	

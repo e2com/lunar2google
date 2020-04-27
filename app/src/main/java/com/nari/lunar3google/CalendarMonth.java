@@ -50,15 +50,6 @@ public class CalendarMonth extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab3);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         ImageButton btnPrev2 = findViewById(R.id.btnPrevious2) ;
         ImageButton btnNext2 = findViewById(R.id.btnNext2) ;
         EditText editText2 = findViewById(id.editMonth2) ;
@@ -71,37 +62,8 @@ public class CalendarMonth extends AppCompatActivity {
         editText2.setText(sdf.format(dd));
 
         final ArrayList<ListData> mList = new ArrayList<ListData>() ;
-        String lunar_date1 = "" ;
-        String lunar_date2 = "" ;
-        String solar_date = "" ;
-        try {
-            solar_date = LunarTranser.solarTranse(StringUtil.parse2Date()) ;
-        } catch (Exception e) {
-            solar_date = StringUtil.parse2Date() ;
-        }
-        try {
-            lunar_date1 = LunarTranser.LunarTranse(StringUtil.parse2Date(), true) ;
-        } catch (Exception e) {
-            lunar_date1 = StringUtil.parse2Date() ;
-        }
-        try {
-            lunar_date2 = LunarTranser.LunarTranse(StringUtil.parse2Date(), false) ;
-        } catch (Exception e) {
-            lunar_date2 = StringUtil.parse2Date() ;
-        }
-        if ("".equals(lunar_date1)) {
-            lunar_date1 = StringUtil.parse2Date() ;
-        }
-        if ("".equals(lunar_date2)) {
-            lunar_date2 = StringUtil.parse2Date() ;
-        }
-        if ("".equals(solar_date)) {
-            solar_date = StringUtil.parse2Date() ;
-        }
-
         dbHandler = DBHandler.open(this);
         Cursor cursor = null;
-        //cursor = dbHandler.selectBaseDate(parse2Date());
         cursor = dbHandler.selectAll();
         int count = 0;
         while (cursor.moveToNext()) {
@@ -209,7 +171,7 @@ public class CalendarMonth extends AppCompatActivity {
             mMonth.add(listTitleData);
             iPos++; // 위치 잡기
         }
-        ListTitleAdapter listTitleAdapter = new ListTitleAdapter(mMonth, mList);
+        ListTitleAdapter listTitleAdapter = new ListTitleAdapter(mMonth, year, month);
         dataMonth.setAdapter(listTitleAdapter);
 
     }
