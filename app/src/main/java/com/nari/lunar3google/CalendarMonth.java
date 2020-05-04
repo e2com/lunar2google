@@ -3,6 +3,7 @@ package com.nari.lunar3google;
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -82,6 +84,7 @@ public class CalendarMonth extends AppCompatActivity{
 
         ImageButton btnPrev2 = findViewById(R.id.btnPrevious2) ;
         ImageButton btnNext2 = findViewById(R.id.btnNext2) ;
+        editText2 = findViewById(id.editMonth2) ;
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -93,6 +96,24 @@ public class CalendarMonth extends AppCompatActivity{
                         break ;
                     case id.btnNext2:
                         param = "N" ;
+                        break ;
+                    case R.id.editMonth2:
+                        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                paramDate = StringUtil.pad(year) + "-" + StringUtil.pad(month + 1) + "-" + StringUtil.pad(dayOfMonth) ;
+                                editText2.setText(paramDate.substring(0, 7));
+                                if (getDayList(paramDate)) {
+                                    Log.e(TAG, paramDate + ":" + paramDate) ;
+                                };
+                                doRefresh(paramDate) ;
+                            }
+                        };
+                        Log.e(TAG, "year=" + paramDate.substring(0, 4)) ;
+                        Log.e(TAG, "month=" + paramDate.substring(5, 7)) ;
+                        Log.e(TAG, "day=" + paramDate.substring(8, 10)) ;
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(CalendarMonth.this, listener, Integer.parseInt(paramDate.substring(0, 4)), Integer.parseInt(paramDate.substring(5, 7)) - 1, Integer.parseInt(paramDate.substring(8, 10)));
+                        datePickerDialog.show();
                         break ;
                 }
                 Log.e(TAG, param) ;
@@ -106,8 +127,8 @@ public class CalendarMonth extends AppCompatActivity{
         };
         btnPrev2.setOnClickListener(onClickListener);
         btnNext2.setOnClickListener(onClickListener);
+        editText2.setOnClickListener(onClickListener);
 
-        editText2 = findViewById(id.editMonth2) ;
         dataView = findViewById(id.dataView) ;
         dataMonth = findViewById(id.gridMonth);
         dataMonth.setOnItemClickListener(new AdapterView.OnItemClickListener() {

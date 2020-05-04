@@ -32,7 +32,7 @@ public class ListTitleAdapter extends BaseAdapter {
         year = pYear ;
         month = pMonth ;
 
-        Log.e(TAG, "ListTitleAdapter=" + year + "-" + month) ;
+        Log.i(TAG, "ListTitleAdapter=" + year + "-" + month) ;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ListTitleAdapter extends BaseAdapter {
         int iCnt = 0 ;
         if (isNumber(textTitle.get(position).getTitle())) {
             String pYMD = String.valueOf(year) + String.valueOf(StringUtil.pad(month)) + StringUtil.pad(Integer.parseInt(textTitle.get(position).getTitle()));
-            Log.e(TAG, "pYMD=" + pYMD) ;
+            Log.i(TAG, "pYMD=" + pYMD) ;
             DBHandler dbHandler = DBHandler.open(context);
             Cursor rs = dbHandler.selectBaseDate(pYMD);
             listData.clear();

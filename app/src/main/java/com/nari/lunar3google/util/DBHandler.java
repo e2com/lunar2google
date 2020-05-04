@@ -90,14 +90,14 @@ public class DBHandler {
 		if ("".equals(lunar_date1)) {
 			lunar_date1 = BaseDate ;
 		}
-		Log.i(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
-		Log.e(">>>", BaseDate + "," + lunar_date1) ;
+		Log.d(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
+		Log.d(">>>", BaseDate + "," + lunar_date1) ;
 		// 왜 이렇게는 검색이 한개만 되는 것일까 ???
 		String sql = "select * from lunarPlan where (base_date like '%" + BaseDate.substring(4, 8) +
 				"' and lunar_ty = '2') or (base_date like '%" + lunar_date1.substring(4, 8) + "' and lunar_ty = '1' ) " +
 				" order by base_date" ;
-		Log.i(">>>", sql) ;
-		Log.i(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
+		Log.d(">>>", sql) ;
+		Log.d(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
 		Cursor cursor = db.rawQuery(sql, null);
 		return cursor;
 	}
@@ -126,15 +126,15 @@ public class DBHandler {
 		if ("".equals(lunar_date2)) {
 			lunar_date2 = BaseDate ;
 		}
-		Log.i(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
-		Log.e(">>>", BaseDate + "," + lunar_date1 + "," + lunar_date2) ;
+		Log.d(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
+		Log.d(">>>", BaseDate + "," + lunar_date1 + "," + lunar_date2) ;
 		// 왜 이렇게는 검색이 한개만 되는 것일까 ???
 		String sql = "select * from lunarPlan where (base_date between '%" + BaseDate.substring(4, 6) +	"01' and '%" + BaseDate.substring(4, 6)	+ "31') "
 				+ " or (base_date between '%" + lunar_date1.substring(4, 6) + "01' and '%" + lunar_date1.substring(4, 6) + "31' and lunar_ty = '1' and leap_ty = '1') "
 				+ " or (base_date like '%" + lunar_date2.substring(4, 6) + "01' and '%" + lunar_date2.substring(4, 6) + "31' and lunar_ty = '1' and leap_ty = '0') order by base_date" ;
 
-		Log.i(">>>", sql) ;
-		Log.i(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
+		Log.d(">>>", sql) ;
+		Log.d(">>>", "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<") ;
 		Cursor cursor = db.rawQuery(sql, null);
 		return cursor;
 	}
