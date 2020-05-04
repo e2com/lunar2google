@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -178,7 +179,12 @@ public class CalendarMonth extends AppCompatActivity{
                 startActivityForResult(intent2, ACT_EDIT);
                 return true;
             case R.id.action_menu_about:
-                new AlertDialog.Builder(this)
+
+                Intent openURL = new Intent(Intent.ACTION_VIEW);
+                openURL.setData(Uri.parse("https://6k2emgblog.wordpress.com/2020/04/17/%ea%b5%ac%ea%b8%80%eb%a1%9c%ea%b0%84-%ec%9d%8c%eb%a0%a5-%ec%95%b1-%ec%84%a4%eb%aa%85%ec%84%9c/"));
+                startActivityForResult(openURL, 102);
+
+/*                new AlertDialog.Builder(this)
                         .setTitle(getResources().getString(R.string.app_name))
                         .setMessage(
                                 getResources().getString(R.string.label_mesg_1) +
@@ -186,7 +192,7 @@ public class CalendarMonth extends AppCompatActivity{
                                         getResources().getString(R.string.label_mesg_3) + " \n " +
                                         getResources().getString(R.string.label_mesg_4) + ": www.androidicons.com")
                         .setIcon(R.drawable.ic_menu_wizard).setCancelable(false)
-                        .setNegativeButton(getResources().getString(R.string.label_close), null).show();
+                        .setNegativeButton(getResources().getString(R.string.label_close), null).show();*/
 
                 return true;
 /*            case R.id.action_menu_get_schedule:
