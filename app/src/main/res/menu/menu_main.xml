@@ -14,18 +14,20 @@
         android:orderInCategory="100"
         android:title="@string/label_menu_sync_schedule"
         app:showAsAction="never" />
+
     <item
-        android:id="@+id/action_menu_about"
-        android:icon="@drawable/ic_menu_anchor"
+        android:id="@+id/action_menu_test_alarm"
+        android:icon="@drawable/ic_menu_phone"
         android:orderInCategory="100"
-        android:title="@string/label_menu_about"
+        android:title="@string/label_menu_test_alarm"
         app:showAsAction="never" />
-    <item
+
+    <!--item 메인 화면으로 사용하기 때문에 메뉴 제거
         android:id="@+id/action_menu_get_schedule"
         android:icon="@drawable/ic_menu_tick"
         android:orderInCategory="100"
         android:title="@string/label_menu_month"
-        app:showAsAction="never" />
+        app:showAsAction="never" /-->
     <item
         android:id="@+id/action_menu_today"
         android:icon="@drawable/ic_menu_categories"
@@ -44,17 +46,19 @@
         android:orderInCategory="100"
         android:title="@string/label_menu_restore"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_menu_set_alarm_time"
         android:icon="@drawable/ic_menu_phone"
         android:orderInCategory="100"
         android:title="@string/label_menu_set_alarm_time"
         app:showAsAction="never" />
+
     <item
-        android:id="@+id/action_menu_test_alarm"
-        android:icon="@drawable/ic_menu_phone"
+        android:id="@+id/action_menu_about"
+        android:icon="@drawable/ic_menu_anchor"
         android:orderInCategory="100"
-        android:title="@string/label_menu_test_alarm"
+        android:title="@string/label_menu_about"
         app:showAsAction="never" />
 
 </menu>

@@ -12,6 +12,7 @@
     <string name="label_time" translatable="false">12:00</string>
     <string name="label_edate">End Date</string>
     <string name="label_mesg">Event</string>
+    <string name="label_ok" translatable="false">OK</string>
     <string name="label_emsg_title">Entry a Subject</string>
     <string name="label_save_btn">Save</string>
     <string name="label_cancel_btn">Cancel</string>
@@ -74,6 +75,7 @@
     <string name="label_invalid_phone_no">Invalid phone number.</string>
     <string name="label_menu_sms">SMS Send</string>
     <string name="label_msg_pay_sms">Pay send a SMS ???</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-5706840078904135~8666998632</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-5706840078904135/2101590289</string>
     <string name="banner_ad_unit_id_for_test" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="msgBackup">Backup Execute.</string>

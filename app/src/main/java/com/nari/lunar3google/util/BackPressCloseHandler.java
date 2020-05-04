@@ -33,6 +33,7 @@ public class BackPressCloseHandler {
 
     private void showGuide() {
         // activity 가 아닌 곳에서는 getResources 을 이렇게 사용해야 함.
-        Toast.makeText(activity, activity.getResources().getString(R.string.label_finish_apps), Toast.LENGTH_LONG).show();
+        //Toast.makeText(activity, activity.getResources().getString(R.string.label_finish_apps), Toast.LENGTH_LONG).show();
+        kakaoToast.makeToast(activity, activity.getResources().getString(R.string.label_finish_apps), Toast.LENGTH_LONG).show();
     }
 }

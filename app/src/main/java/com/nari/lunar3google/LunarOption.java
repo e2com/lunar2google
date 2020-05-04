@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.nari.lunar3google.util.kakaoToast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -77,7 +79,7 @@ public class LunarOption extends Activity {
 			timeEntry.setHour(Integer.parseInt(time.substring(0, 2))) ;
 			timeEntry.setMinute(Integer.parseInt(time.substring(2, 4))) ;
 		} catch(Exception e) {
-			Toast.makeText(this, time, Toast.LENGTH_LONG).show() ;
+			kakaoToast.makeToast(this, time, Toast.LENGTH_LONG).show() ;
 		}
 
 		Button save_btn = (Button) findViewById(R.id.save_btn) ;

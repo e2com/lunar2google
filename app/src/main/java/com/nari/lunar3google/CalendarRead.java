@@ -203,10 +203,10 @@ public class CalendarRead extends Activity {
 			            			//rc = dbHandler.insert(title[i], view_c, 1, 0, 0, description[i], eventLocation[i]) ;
 			            		}
 			            		if(rc <= 0){
-			    					//Toast.makeText(CalendarRead.this, "에러났다", Toast.LENGTH_LONG).show();
+			    					//kakaoToast.makeToast(CalendarRead.this, "에러났다", Toast.LENGTH_LONG).show();
 			    					setResult(RESULT_CANCELED);
 			    				} else { 
-			    					//Toast.makeText(this, "저장완료", 2000).show();
+			    					//kakaoToast.makeToast(this, "저장완료", 2000).show();
 			    					setResult(RESULT_OK);
 			    				}
 			            		
@@ -214,10 +214,10 @@ public class CalendarRead extends Activity {
 			            		Log.d(TAG, "<" + title[i] + "><" + dtstart[i] + "><" + description[i] + "><" + eventLocation[i] + ">");
 			            		long rc = dbHandler.insert(title[i], dtstart[i], 2, 0, 1, description[i], eventLocation[i]) ;
 			    				if(rc <= 0){
-			    					//Toast.makeText(CalendarRead.this, "에러났다", Toast.LENGTH_LONG).show();
+			    					//kakaoToast.makeToast(CalendarRead.this, "에러났다", Toast.LENGTH_LONG).show();
 			    					setResult(RESULT_CANCELED);
 			    				}else{ 
-			    					//Toast.makeText(this, "저장완료", 2000).show();
+			    					//kakaoToast.makeToast(this, "저장완료", 2000).show();
 			    					setResult(RESULT_OK);
 			    				}	
 			            	}

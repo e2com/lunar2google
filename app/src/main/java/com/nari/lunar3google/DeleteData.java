@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.nari.lunar3google.service.AlarmReceiver;
 import com.nari.lunar3google.util.DBHandler;
 import com.nari.lunar3google.util.LunarTranser;
+import com.nari.lunar3google.util.kakaoToast;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -172,13 +173,13 @@ public class DeleteData extends Activity {
 				long rc = dbHandler.update(id, uSubject, uBase_date, uLunar_ty, uLeap_ty, uSync_stat, uName, uMobilno) ;
 				//dbHandler.close() ;
 				if(rc <= 0){
-					//Toast.makeText(DeleteData.this, "에러났다", 2000).show();
+					//kakaoToast.makeToast(DeleteData.this, "에러났다", 2000).show();
 					//setResult(RESULT_CANCELED);
 				}else{ 
 					//AlarmSet(base_date, lunar_ty, leap_ty) ; // 알람설정
 					CalendarDelete(id, subject) ;
 					CalendarWrite(uSubject, uBase_date, uBase_time, uLunar_ty, uLeap_ty, uSync_stat, uName, uMobilno) ;
-					//Toast.makeText(DeleteData.this, "수정완료", 2000).show();
+					//kakaoToast.makeToast(DeleteData.this, "수정완료", 2000).show();
 					//setResult(RESULT_OK);
 					
 				}
@@ -199,10 +200,10 @@ public class DeleteData extends Activity {
 							long rc = dbHandler.delete(id) ;
 							//dbHandler.close() ;
 							if(rc <= 0){
-								//Toast.makeText(DeleteData.this, "에러났다", 2000).show();
+								//kakaoToast.makeToast(DeleteData.this, "에러났다", 2000).show();
 								//setResult(RESULT_CANCELED);
 							}else{ 
-								//Toast.makeText(DeleteData.this, "삭제완료", 2000).show();
+								//kakaoToast.makeToast(DeleteData.this, "삭제완료", 2000).show();
 								CalendarDelete(id, subject) ;
 								//setResult(RESULT_OK);
 								
@@ -256,12 +257,12 @@ public class DeleteData extends Activity {
 									it.putExtra("sms_body", "<" + uName + ">" + uSubject);
 									startActivity(it);
 
-									Toast.makeText(getBaseContext(), getResources().getString(R.string.label_completed_SMS),	Toast.LENGTH_LONG).show() ;
+									kakaoToast.makeToast(getBaseContext(), getResources().getString(R.string.label_completed_SMS),	Toast.LENGTH_LONG).show() ;
 								} else {
-									Toast.makeText(getBaseContext(), getResources().getString(R.string.label_not_found_phone),	Toast.LENGTH_LONG).show() ;
+									kakaoToast.makeToast(getBaseContext(), getResources().getString(R.string.label_not_found_phone),	Toast.LENGTH_LONG).show() ;
 								}
 							} catch (Exception e) {
-								Toast.makeText(getBaseContext(), getResources().getString(R.string.label_invalid_phone_no),	Toast.LENGTH_LONG).show() ;
+								kakaoToast.makeToast(getBaseContext(), getResources().getString(R.string.label_invalid_phone_no),	Toast.LENGTH_LONG).show() ;
 							}
 							finish() ;
 							

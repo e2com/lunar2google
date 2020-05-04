@@ -41,6 +41,7 @@ import com.nari.lunar3google.util.BackPressCloseHandler;
 import com.nari.lunar3google.util.DBHandler;
 import com.nari.lunar3google.util.FileUtil;
 import com.nari.lunar3google.util.LunarTranser;
+import com.nari.lunar3google.util.kakaoToast;
 import com.nari.lunar3google.view.ListData;
 import com.nari.lunar3google.view.ListDataAdapter;
 
@@ -265,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, ACT_EDIT);
                 return true;
             case R.id.action_menu_sync_schedule:
-                // Toast.makeText(this, "일정에 일괄 등록합니다.", Toast.LENGTH_SHORT).show()
+                // kakaoToast.makeToast(this, "일정에 일괄 등록합니다.", Toast.LENGTH_SHORT).show()
                 // ;
                 Intent intent2 = new Intent(this, CalendarWrite.class);
                 intent2.putExtra("Textin", "CalendarWrite");
@@ -283,18 +284,20 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton(getResources().getString(R.string.label_close), null).show();
 
                 return true;
-            case R.id.action_menu_get_schedule:
+/*            case R.id.action_menu_get_schedule:
 
                 Intent intent4 = new Intent(this, CalendarMonth.class);
                 intent4.putExtra("Textin", "CalendarMonth");
-                startActivityForResult(intent4, ACT_EDIT);
+                startActivityForResult(intent4, ACT_EDIT);*/
 
 	/* 한동안은 가져오는 건 하지 말자...
 				Intent intent4 = new Intent(this, CalendarRead.class);
 				intent4.putExtra("Textin", "CalendarRead");
-				startActivityForResult(intent4, ACT_EDIT);*/
+				startActivityForResult(intent4, ACT_EDIT);
 
                 return true;
+*/
+
             case R.id.action_menu_today:
                 Intent intent5 = new Intent(this, CalendarView.class);
                 intent5.putExtra("Textin", "CalendarView");
@@ -306,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
                         new ExportDatabaseTask().execute();
                         SystemClock.sleep(1000);
                     } else {
-                        Toast.makeText(MainActivity.this,
+                        kakaoToast.makeToast(MainActivity.this,
                                 getResources().getString(R.string.label_not_used_backup), Toast.LENGTH_SHORT)
                                 .show();
                     }
@@ -347,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
                         new ImportDatabaseTask().execute();
                         SystemClock.sleep(500);
                     } else {
-                        Toast.makeText(MainActivity.this,
+                        kakaoToast.makeToast(MainActivity.this,
                                 getResources().getString(R.string.label_not_used_backup), Toast.LENGTH_SHORT)
                                 .show();
                     }
@@ -406,9 +409,9 @@ public class MainActivity extends AppCompatActivity {
 				val.put("body", "문자간다!!");
 				Uri inserted = getContentResolver().insert(Uri.parse("content://sms"), val);
 				if (inserted != null) {
-					Toast.makeText(MainActivity.this,"sms Inserted", Toast.LENGTH_LONG).show() ;
+					kakaoToast.makeToast(MainActivity.this,"sms Inserted", Toast.LENGTH_LONG).show() ;
 				} else {
-					Toast.makeText(MainActivity.this,"sms Inserted failed", Toast.LENGTH_LONG).show() ;
+					kakaoToast.makeToast(MainActivity.this,"sms Inserted failed", Toast.LENGTH_LONG).show() ;
 				}
 				// sms 가지고 오기...~
 				ContentResolver r = getContentResolver() ;
@@ -421,12 +424,12 @@ public class MainActivity extends AppCompatActivity {
 				if (result.moveToFirst()) {
 					body = result.getString(result.getColumnIndexOrThrow("body")).toString() ;
 					number = result.getString(result.getColumnIndexOrThrow("address")).toString();
-					Toast.makeText(this, body + "[" + number + "]", Toast.LENGTH_LONG).show() ;
+					kakaoToast.makeToast(this, body + "[" + number + "]", Toast.LENGTH_LONG).show() ;
 				}
 				while (result.moveToNext()) {
 					body = result.getString(result.getColumnIndexOrThrow("body")).toString() ;
 					number = result.getString(result.getColumnIndexOrThrow("address")).toString();
-					Toast.makeText(this, body + "[" + number + "]", Toast.LENGTH_LONG).show() ;
+					kakaoToast.makeToast(this, body + "[" + number + "]", Toast.LENGTH_LONG).show() ;
 				}
 				result.close() ;
 				*/
@@ -492,9 +495,9 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
             if (success) {
-                Toast.makeText(MainActivity.this, getString(R.string.msgBackupCompiled), Toast.LENGTH_SHORT).show();
+                kakaoToast.makeToast(MainActivity.this, getString(R.string.msgBackupCompiled), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(MainActivity.this, getString(R.string.msgNotBackup), Toast.LENGTH_SHORT).show();
+                kakaoToast.makeToast(MainActivity.this, getString(R.string.msgNotBackup), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -544,9 +547,9 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
             if (errMsg == null) {
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.mesg_restore_ok), Toast.LENGTH_SHORT).show();
+                kakaoToast.makeToast(MainActivity.this, getResources().getString(R.string.mesg_restore_ok), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.mesg_restore_err) + errMsg, Toast.LENGTH_SHORT).show();
+                kakaoToast.makeToast(MainActivity.this, getResources().getString(R.string.mesg_restore_err) + errMsg, Toast.LENGTH_SHORT).show();
             }
         }
     }

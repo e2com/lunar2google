@@ -1,9 +1,14 @@
 package com.nari.lunar3google.util;
 
+import android.util.Log;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class StringUtil {
+
+    private static String TAG = "StringUtil" ;
 
     public StringUtil() {
 
@@ -52,6 +57,41 @@ public class StringUtil {
             return_value = "0" + String.valueOf(c);
         }
         return return_value;
+    }
+
+    public static String addMonth(String currMonth, String param) {
+        String strToday = "" ;
+
+        Log.e(TAG, ">>>" + currMonth + "<<<" + param) ;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Calendar cal = Calendar.getInstance() ;
+        String[] currYm = currMonth.split("-") ;
+        Log.e(TAG, "=" + currYm[0] + "/" + currYm[1]) ;
+
+        cal.set(Integer.parseInt(currYm[0]), Integer.parseInt(currYm[1])-1, 1);
+        Log.e(TAG, "sdf Date=" + sdf.format(new java.util.Date(cal.getTimeInMillis())));
+        if ("P".equals(param)) {
+            cal.add(cal.MONTH, -1);
+        } else {
+            cal.add(cal.MONTH, +1);
+        }
+        strToday = sdf.format(new java.util.Date(cal.getTimeInMillis()));
+
+        Log.e(TAG, "return Value =" + strToday) ;
+        return strToday ;
+    }
+
+    public static boolean isNumber(String iString) {
+        boolean bResult = false ;
+        int isNumber = 0 ;
+        try {
+            isNumber = Integer.parseInt(iString) ;
+            bResult = true ;
+        } catch (Exception e) {
+
+        }
+        //Log.d(TAG, "[" + isNumber + "]") ;
+        return bResult ;
     }
 
 }

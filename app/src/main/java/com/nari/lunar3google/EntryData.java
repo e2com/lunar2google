@@ -123,12 +123,12 @@ public class EntryData extends Activity {
 				Log.d(TAG, subject + base_date + lunar_ty + leap_ty + sync_stat + name + mobilno) ;
 				long rc = dbHandler.insert(subject, base_date, lunar_ty, leap_ty, sync_stat, name, mobilno) ;
 				if(rc <= 0){
-					//Toast.makeText(EntryData.this, "에러났다", 2000).show();
+					//kakaoToast.makeToast(EntryData.this, "에러났다", 2000).show();
 					//setResult(RESULT_CANCELED);
 				}else{
 					//AlarmSet(base_date, base_time, lunar_ty, leap_ty) ; // 알람설정
 					CalendarWrite(subject, base_date, base_time, lunar_ty, leap_ty, sync_stat, name, mobilno) ; // 일정 동기화 처리
-					//Toast.makeText(EntryData.this, "저장완료", 2000).show();
+					//kakaoToast.makeToast(EntryData.this, "저장완료", 2000).show();
 					//setResult(RESULT_OK);
 				}
 				finish() ;

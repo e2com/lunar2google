@@ -146,7 +146,7 @@ public class CalendarView extends Activity {
 		cursor.close();
 		dbHandler.close();
 
-		//Toast.makeText(this, "Read Data Count " + String.valueOf(count), Toast.LENGTH_LONG).show() ;
+		//kakaoToast.makeToast(this, "Read Data Count " + String.valueOf(count), Toast.LENGTH_LONG).show() ;
 		
 		final ListDataAdapter m_adapter = new ListDataAdapter(m_lists);
 		list.setAdapter(m_adapter);

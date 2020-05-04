@@ -6,12 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nari.lunar3google.R;
 import com.nari.lunar3google.util.DBHandler;
+import com.nari.lunar3google.util.LunarTranser;
 import com.nari.lunar3google.util.StringUtil;
 
 import java.util.ArrayList;
@@ -49,7 +51,7 @@ public class ListTitleAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
 
         Context context = parent.getContext() ;
         View v = convertView ;
@@ -59,7 +61,10 @@ public class ListTitleAdapter extends BaseAdapter {
         }
         TextView textDay = v.findViewById(R.id.textDay);
         textDay.setText(this.textTitle.get(position).getTitle());
-        ListView lvList = v.findViewById(R.id.ListViewDay);
+        TextView textList = v.findViewById(R.id.textList) ;
+
+        String dataList = "" ;
+        int iCnt = 0 ;
         if (isNumber(textTitle.get(position).getTitle())) {
             String pYMD = String.valueOf(year) + String.valueOf(StringUtil.pad(month)) + StringUtil.pad(Integer.parseInt(textTitle.get(position).getTitle()));
             Log.e(TAG, "pYMD=" + pYMD) ;
@@ -67,14 +72,18 @@ public class ListTitleAdapter extends BaseAdapter {
             Cursor rs = dbHandler.selectBaseDate(pYMD);
             listData.clear();
             while (rs.moveToNext()) {
-                ListTitleData listTitleData = new ListTitleData(rs.getString(rs.getColumnIndex("subject")));
-                listData.add(listTitleData);
-                Log.e(TAG, "Today Plan=" + rs.getString(rs.getColumnIndex("subject")));
+                dataList = rs.getString(rs.getColumnIndex("subject"));
+                iCnt++;
             }
             dbHandler.close();
         }
-        ListDayAdapter listDayAdapter = new ListDayAdapter(listData);
-        lvList.setAdapter(listDayAdapter);
+        /* 1건 이상의 경우만 표시 */
+        if (iCnt > 1) {
+            textList.setText("(" + iCnt + ")" + dataList);
+        } else {
+            textList.setText(dataList);
+        }
+
         return v;
     }
 

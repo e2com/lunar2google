@@ -164,11 +164,11 @@ public class CalendarWrite extends Activity {
 	
 							long rc = dbHandler.updateSyncStat(_id,	1) ;
 							if(rc <= 0){
-								// Toast.makeText(CalendarWrite.this, "Calendar Write 에러", Toast.LENGTH_LONG).show();
+								// kakaoToast.makeToast(CalendarWrite.this, "Calendar Write 에러", Toast.LENGTH_LONG).show();
 								setResult(RESULT_CANCELED);
 							}else{ 
 								//AlarmSet(base_date, lunar_ty, leap_ty) ; // 알람설정
-								//Toast.makeText(CalendarWrite.this, "Calendar Write 기록중...\n 잠시만 기달려주세요...", Toast.LENGTH_LONG).show();
+								//kakaoToast.makeToast(CalendarWrite.this, "Calendar Write 기록중...\n 잠시만 기달려주세요...", Toast.LENGTH_LONG).show();
 								setResult(RESULT_OK);
 							}
 						}
@@ -223,10 +223,10 @@ public class CalendarWrite extends Activity {
 						
 						long rc = dbHandler.updateSyncStat(_id,	0) ;
 						if(rc <= 0){
-							//Toast.makeText(CalendarWrite.this, "Calendar 제거 에러", Toast.LENGTH_LONG).show();
+							//kakaoToast.makeToast(CalendarWrite.this, "Calendar 제거 에러", Toast.LENGTH_LONG).show();
 							setResult(RESULT_CANCELED);
 						}else{ 
-							//Toast.makeText(CalendarWrite.this, "Calendar 제거중...\n 잠시만 기달려주세요...", Toast.LENGTH_LONG).show();
+							//kakaoToast.makeToast(CalendarWrite.this, "Calendar 제거중...\n 잠시만 기달려주세요...", Toast.LENGTH_LONG).show();
 							setResult(RESULT_OK);
 						}
 						
