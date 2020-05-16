@@ -92,4 +92,6 @@
     <string name="labelTItle">제목</string>
     <string name="label_entry_date">날자를 입력하세요</string>
     <string name="label_menu_month">월간일정</string>
+    <string name="msg_click_more">다시 선택 하세요.</string>
+    <string name="msg_getToday">오늘로</string>
 </resources>

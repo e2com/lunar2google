@@ -14,6 +14,11 @@ public class StringUtil {
 
     }
 
+    /**
+     * 날자형식 만들기
+     * @param iDate
+     * @return
+     */
     public static String padDate(String iDate) {
         String return_value = "";
         try {
@@ -25,6 +30,11 @@ public class StringUtil {
         return return_value;
     }
 
+    /**
+     * 전화번호 형식 만들기
+     * @param iTelno
+     * @return
+     */
     public static String padTelno(String iTelno) {
         String return_value = "" ;
         try {
@@ -40,6 +50,10 @@ public class StringUtil {
         return return_value ;
     }
 
+    /**
+     * 연월일 산출
+     * @return
+     */
     public static String parse2Date() {
 
         long time = System.currentTimeMillis();
@@ -49,6 +63,11 @@ public class StringUtil {
 
     }
 
+    /**
+     * 두자리 숫자인가 ???
+     * @param c
+     * @return
+     */
     public static String pad(int c) {
         String return_value = "";
         if (c >= 10) {
@@ -59,6 +78,12 @@ public class StringUtil {
         return return_value;
     }
 
+    /**
+     * 월 계산 함수
+     * @param currMonth
+     * @param param
+     * @return
+     */
     public static String addMonth(String currMonth, String param) {
         String strToday = "" ;
 
@@ -81,6 +106,11 @@ public class StringUtil {
         return strToday ;
     }
 
+    /**
+     *  숫자인가 ?
+     * @param iString
+     * @return
+     */
     public static boolean isNumber(String iString) {
         boolean bResult = false ;
         int isNumber = 0 ;
@@ -93,5 +123,21 @@ public class StringUtil {
         //Log.d(TAG, "[" + isNumber + "]") ;
         return bResult ;
     }
+
+    /**
+     * 오늘 날자 리턴
+     * @return
+     */
+    public static String getToday() {
+        String strToday = "" ;
+
+        long now = System.currentTimeMillis();
+        java.util.Date date = new java.util.Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        strToday = sdf.format(date);
+
+        return strToday ;
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.nari.lunar3google.view;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +75,12 @@ public class ListTitleAdapter extends BaseAdapter {
             while (rs.moveToNext()) {
                 dataList = rs.getString(rs.getColumnIndex("subject"));
                 iCnt++;
+            }
+            /**
+             * 오늘이면 배경색 칠해 볼까 ? : 2020.05.16
+             */
+            if (pYMD.equals(StringUtil.parse2Date())) {
+                textDay.setBackgroundColor(Color.CYAN);
             }
             dbHandler.close();
         }

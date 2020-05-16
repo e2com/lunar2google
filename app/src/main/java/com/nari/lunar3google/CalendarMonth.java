@@ -35,6 +35,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nari.lunar3google.R.id;
 import com.nari.lunar3google.service.AlarmReceiver;
 import com.nari.lunar3google.util.BackPressCloseHandler;
@@ -86,6 +87,16 @@ public class CalendarMonth extends AppCompatActivity{
         ImageButton btnPrev2 = findViewById(R.id.btnPrevious2) ;
         ImageButton btnNext2 = findViewById(R.id.btnNext2) ;
         editText2 = findViewById(id.editMonth2) ;
+
+        FloatingActionButton fab = findViewById(R.id.fab3);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(TAG, "onClick... fab ") ;
+                paramDate = StringUtil.getToday() ;
+                doRefresh(paramDate);
+            }
+        });
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -222,6 +233,8 @@ public class CalendarMonth extends AppCompatActivity{
                                 getResources().getString(R.string.label_not_used_backup), Toast.LENGTH_SHORT)
                                 .show();
                     }
+                } else {
+                    kakaoToast.makeToast(this, getString(R.string.msg_click_more), Toast.LENGTH_LONG).show();
                 }
 
 				/*  외부파일에 기록하는 것은 나중에 db layout 이 변동되면 그걸 해소하기 위한 방법으로 다가
@@ -263,6 +276,8 @@ public class CalendarMonth extends AppCompatActivity{
                                 getResources().getString(R.string.label_not_used_backup), Toast.LENGTH_SHORT)
                                 .show();
                     }
+                } else {
+                    kakaoToast.makeToast(this, getString(R.string.msg_click_more), Toast.LENGTH_LONG).show();
                 }
 				/* 외부파일에 기록하는 것은 나중에 db layout 이 변동되면 그걸 해소하기 위한 방법으로 다가
 				try {
@@ -287,10 +302,14 @@ public class CalendarMonth extends AppCompatActivity{
 
                 return true;
             case R.id.action_menu_set_alarm_time:
-                Intent intent8 = new Intent(this, LunarOption.class);
-                intent8.putExtra("Textin", "LunarOption");
-                startActivityForResult(intent8, ACT_EDIT);
-
+                if (checkFunction("READ_CALENDAR")) {
+                    Intent intent8 = new Intent(this, LunarOption.class);
+                    intent8.putExtra("Textin", "LunarOption");
+                    startActivityForResult(intent8, ACT_EDIT);
+                } else {
+                    kakaoToast.makeToast(this, getString(R.string.msg_click_more), Toast.LENGTH_LONG).show();
+                }
+                return true ;
             case R.id.action_menu_test_alarm:
 
                 AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -542,8 +561,6 @@ public class CalendarMonth extends AppCompatActivity{
 
         editText2.setText(baseMonth.substring(0, 7));
 
-
-
         Log.e(TAG, baseMonth) ;
 
         java.util.Date nDate = null;
@@ -577,6 +594,8 @@ public class CalendarMonth extends AppCompatActivity{
         }
         int iDay = 0 ;
         int iPos = 0 ;
+        int iToday = Integer.parseInt( StringUtil.getToday().substring(8, 10) );
+        Log.e(TAG, "Today=" + iToday + ":" + StringUtil.getToday().substring(8, 10)) ;
         while(true) {
             String sValue = "" ;
             if (iDay == endDay) break ;

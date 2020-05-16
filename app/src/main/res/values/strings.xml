@@ -102,5 +102,7 @@
     <string name="labelTItle">Title</string>
     <string name="label_entry_date">Enter Date of Year</string>
     <string name="label_menu_month">Monthly Calendar</string>
+    <string name="msg_click_more">Clieck one more !!!</string>
+    <string name="msg_getToday">goto Today</string>
 
 </resources>
