@@ -94,4 +94,6 @@
     <string name="label_menu_month">월간일정</string>
     <string name="msg_click_more">다시 선택 하세요.</string>
     <string name="msg_getToday">오늘로</string>
+    <string name="mesg_title_alarm">알림메시지</string>
+    <string name="mesg_not_googleId">구글계정을 찾을 수 없습니다.</string>
 </resources>

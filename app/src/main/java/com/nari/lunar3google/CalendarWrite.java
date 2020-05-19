@@ -39,7 +39,24 @@ public class CalendarWrite extends Activity {
 
 		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
 		final String time = pref.getString("Time", "0800") ;
-		google_index = Integer.parseInt( pref.getString("CalendarID","3") ) ;
+		google_index = Integer.parseInt( pref.getString("CalendarID","99") ) ;
+
+		if (google_index == 99) {
+
+			DialogInterface.OnClickListener mClickListener = new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+				}
+			} ;
+
+			new AlertDialog.Builder(this)
+					.setTitle(getResources().getString(R.string.mesg_title_alarm))
+					.setMessage(getResources().getString(R.string.mesg_not_googleId))
+					.setPositiveButton(getResources().getString(R.string.label_close), mClickListener)
+					.show();
+
+		}
             	
     	DialogInterface.OnClickListener mClickLeft =
 			new DialogInterface.OnClickListener() {

@@ -2,9 +2,11 @@ package com.nari.lunar3google;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -42,6 +44,7 @@ public class EntryData extends Activity {
     EditText entry_sHour;
     EditText entry_sMin;
 	DBHandler dbHandler ;
+	int google_index = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,24 @@ public class EntryData extends Activity {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		SharedPreferences pref = getSharedPreferences("lunar2Gugul", 0) ;
         String AlramSetTime = pref.getString("Time", "0800") ;
+		google_index = Integer.parseInt( pref.getString("CalendarID","99") ) ;
+
+		if (google_index == 99) {
+
+			DialogInterface.OnClickListener mClickListener = new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+				}
+			} ;
+
+			new AlertDialog.Builder(this)
+					.setTitle(getResources().getString(R.string.mesg_title_alarm))
+					.setMessage(getResources().getString(R.string.mesg_not_googleId))
+					.setPositiveButton(getResources().getString(R.string.label_close), mClickListener)
+					.show();
+
+		}
 
 		dbHandler = DBHandler.open(this)  ;
 		final EditText entrySubject = (EditText) findViewById(R.id.entrySubject) ;

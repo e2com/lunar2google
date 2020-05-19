@@ -178,16 +178,20 @@ public class CalendarMonth extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_menu_append:
-                Intent intent = new Intent(this, EntryData.class);
-                intent.putExtra("TextIn", "test");
-                startActivityForResult(intent, ACT_EDIT);
+                if (checkFunction("READ_CALENDAR")) {
+                    Intent intent = new Intent(this, EntryData.class);
+                    intent.putExtra("TextIn", "test");
+                    startActivityForResult(intent, ACT_EDIT);
+                }
                 return true;
             case R.id.action_menu_sync_schedule:
                 // kakaoToast.makeToast(this, "일정에 일괄 등록합니다.", Toast.LENGTH_SHORT).show()
                 // ;
-                Intent intent2 = new Intent(this, CalendarWrite.class);
-                intent2.putExtra("Textin", "CalendarWrite");
-                startActivityForResult(intent2, ACT_EDIT);
+                if (checkFunction("WRITE_CALENDAR")) {
+                    Intent intent2 = new Intent(this, CalendarWrite.class);
+                    intent2.putExtra("Textin", "CalendarWrite");
+                    startActivityForResult(intent2, ACT_EDIT);
+                }
                 return true;
             case R.id.action_menu_about:
 
