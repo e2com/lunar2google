@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -18,10 +19,8 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -30,6 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -307,6 +307,20 @@ public class CalendarMonth extends AppCompatActivity{
                 return true;
             case R.id.action_menu_set_alarm_time:
                 if (checkFunction("READ_CALENDAR")) {
+
+//                    DialogInterface.OnClickListener mClickListener = new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                          //  finish();
+//                        }
+//                    } ;
+//
+//                    new AlertDialog.Builder(this)
+//                            .setTitle(getResources().getString(R.string.mesg_title_alarm))
+//                            .setMessage(getResources().getString(R.string.mesg_not_googleId))
+//                            .setPositiveButton(getResources().getString(R.string.label_close), mClickListener)
+//                            .show();
+
                     Intent intent8 = new Intent(this, LunarOption.class);
                     intent8.putExtra("Textin", "LunarOption");
                     startActivityForResult(intent8, ACT_EDIT);
@@ -370,6 +384,20 @@ public class CalendarMonth extends AppCompatActivity{
                 return true ;
         }
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.e(TAG, "requestCode=" + requestCode) ;
+        Log.e(TAG, "resultCode=" + resultCode) ;
+
     }
 
     /**
